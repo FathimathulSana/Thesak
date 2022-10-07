@@ -1,0 +1,35 @@
+<section>
+    <div class="container mt-5">
+        <div class="row mt-5">
+             <form class="d-flex" role="search">
+                          <input class="form-control w-50 bg-white" type="search" placeholder="Search" aria-label="Search">
+                        <button style="background-color:rgb(7, 37, 7) ;"  class="btn text-light mb-4 ml-2" type="submit">Search</button>
+                         <a href="/admin/add-product" style="background-color:rgb(7, 37, 7) ;"  class="btn text-light ml-auto mb-4 w-25">Add product</a>
+                          </form>
+        </div>
+        <table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+       <th scope="col">Image</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Stock</th>
+      <th scope="col">Price</th>
+       <th scope="col">Manage</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+    {{#each products}}
+    <tr>
+      <th scope="row">1</th>
+      <td><img style="width: 50px;" src="{{this.image}}" alt=""></td>
+      <td>{{this.brand}}</td>
+      <td>{{this.price}}</td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
+    </div>
+</section>

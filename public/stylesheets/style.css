@@ -1,0 +1,32 @@
+.bg{
+  background-color: black;
+}
+.form-control{
+  width: 500px;
+  margin-left: 60px;
+}
+.text{
+  margin-top: 50px;
+}
+.form-control{
+  margin-left: 0% ;
+}
+.btn-color{
+    background-color: #022404;
+    color: #fff; 
+  }
+  
+  .profile-image-pic{
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+  }
+  .cardbody-color{
+    background-color: black;
+  }
+  
+  a{
+    text-decoration: none;
+  }
+  
+  
