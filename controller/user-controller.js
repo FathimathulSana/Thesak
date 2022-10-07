@@ -8,7 +8,7 @@ const session =require("express-session")
 const admin=('../model/userModel');
 
 exports.getHome=function(req,res,next){
-    res.render('index')
+    res.render('index',{layout:'user-layout'})
 }
 exports.getLogin=function(req,res,next){
     res.render('user/userLogin');
@@ -23,7 +23,7 @@ exports.LoginAction=async function(req,res,next){
     const correct=await bcrypt.compare(req.body.password,userData.password);
     if(!correct) return res.render('user//userLogin',{msg:'password incorrect'})
     req.session.userLoggedin = true;
-     res.redirect('/')
+     res.render('index',{layout:'user-layout',user:true})
 }
 
 exports.getSignup=function(req,res,next){

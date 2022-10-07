@@ -15,6 +15,7 @@ const bcrypt = require("bcrypt");
  router.get('/userSignupPage',userController.getSignup);
  router.post('/signup',userController.SignupAction);
  router.get('/login',userController.getLogin);
+ router.get('/userLogout',userController.getHome)
 //  router.get('/userLogout',userController.userLogout)
 //   router.get('/signup',userController.getUserLogin);
  
