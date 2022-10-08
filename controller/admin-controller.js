@@ -3,7 +3,7 @@ const router = express.Router();
 const adminController = require("../controller/admin-controller");
 const User = require("../model/userModel");
 const fs=require('fs');
-const { updateOne } = require("../model/userModel");
+const { updateOne, find } = require("../model/userModel");
 const Category = require("../model/categoryModel");
 
 const admin=('../model/adminModel');
@@ -66,12 +66,29 @@ exports.getAddCategory=function(req,res){
     res.render('admin/add-category',{layout:'admin-layout',admin:true});
 }
 
-exports.getAddCategories=function(req,res,next){
-    const newCategory=new Category({
-        cname:req.body.cname
-      
-    });
-    newCategory.save();
-    console.log(req.body.cname);
-    res.redirect('/admin/category');
+exports.getAddCategories=async function(req,res,next){
+  const category_data=await Category.find();
+  if(category_data.length>0){
+    console.log(req.body.cname)
+    let checking=false;
+    for(let i=0;i<category_data.length;i++){
+        if(category_data[i]['cname'].toLowerCase() === req.body.cname.toLowerCase()){
+            console.log('ethi ehti');
+            checking=true;
+            break;
+        }
+    }
+    if(checking == false){
+        const newCategory=new Category({
+            cname:req.body.cname
+        });
+        newCategory.save();
+        console.log(req.body.cname);
+        res.redirect('/admin/category');
+    }else{
+        res.render('admin//add-category',{layout:'admin-layout',msg:'This category is alredy exist',admin:true})
+    }
+
+  }
+   
 }
