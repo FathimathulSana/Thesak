@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const app = require('../app');
 
 const userController = require("../controller/user-controller");
+const adminController=require('../controller/admin-controller');
+
 
 const bcrypt = require("bcrypt");
 

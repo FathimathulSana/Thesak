@@ -4,6 +4,7 @@ const adminController = require("../controller/admin-controller");
 const User = require("../model/userModel");
 const fs=require('fs');
 const { updateOne } = require("../model/userModel");
+const Category = require("../model/categoryModel");
 
 const admin=('../model/adminModel');
 
@@ -56,22 +57,21 @@ exports.getUnBlocked=async function(req,res){
 }
 
 
-    // exports.logout=function(req,res,next){
-    //     res.render('admin/admin-login',{layout:'signup-layout'});
-    // }
+//  category 
+exports.getCategory=async function(req,res){
+    const categoryDetails=await Category.find().lean();
+    res.render('admin/view-category',{categoryDetails,layout:'admin-layout',admin:true});
+};
+exports.getAddCategory=function(req,res){
+    res.render('admin/add-category',{layout:'admin-layout',admin:true});
+}
 
-
-    // console.log(req.body);
-    // if(!req.body.email ||!req.body.password) return res.render('admin//admin-login',{msg:'admin empty'});
-    // const adminData=await admin.findOne({email:req.body.email});
-    // console.log(adminData);
-    // if(!adminData) return res.render('admin//admin-login',{msg:'admin not found'});
-    // console.log('not admin');
-    // const correct=await bcrypt.compare(req.body.password,adminData.password);
-    // if(!correct) return res.render('admin//admin-login',{msg:'password incorrect'});
-    // req.session.adminLoggedin = true;
-    // res.render('admin/admin-panel')
-
-// exports.getAdminPanel=function(req,res,next){
-//     res.render('admin/admin-panel');
-// }
+exports.getAddCategories=function(req,res,next){
+    const newCategory=new Category({
+        cname:req.body.cname
+      
+    });
+    newCategory.save();
+    console.log(req.body.cname);
+    res.redirect('/admin/category');
+}

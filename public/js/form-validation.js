@@ -36,7 +36,8 @@ $("#signupform").validate({
        },
        password: {
        required: true,
-       minlength: 8
+       minlength: 8,
+       Name:false
        },
        confirmpassword:{
         required:true,

@@ -4,11 +4,13 @@ const bcrypt = require("bcrypt");
 const router = express.Router();
 const mongoose = require("mongoose");
 const session =require("express-session")
+const Category = require("../model/categoryModel");
 
 const admin=('../model/userModel');
 
-exports.getHome=function(req,res,next){
-    res.render('index',{layout:'user-layout'})
+exports.getHome=async function(req,res,next){
+    const categoryDetails=await Category.find().lean();
+    res.render('index',{categoryDetails,layout:'user-layout'})
 }
 exports.getLogin=function(req,res,next){
     res.render('user/userLogin');
@@ -16,6 +18,7 @@ exports.getLogin=function(req,res,next){
 exports.LoginAction=async function(req,res,next){
     console.log('dfghj')
     if(!req.body.email || !req.body.password) return res.render('user//userLogin',{loginerr: true})
+
     const userData=await User.findOne({email:req.body.email});
     console.log(userData);
     if(!userData) return res.render('user//userLogin',{msg:'user not found'})
