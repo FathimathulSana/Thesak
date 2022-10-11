@@ -7,37 +7,44 @@
                 <img src="/admin/img/TheSak.png" class="img-fluid border mb-2" alt="Sample image" width="50%" height="50%">
               </div>
                        <form name="signupform" action="/signup" method="post" id="signupform">
+                         <label for="floatingText1">First Name</label>
                         <div class="form-floating mb-3">
                             <input name="fname" type="text" class="form-control bg-white" id="floatingText1" placeholder="FirstName" >
                          
-                            <label for="floatingText1">First Name</label>
+                          
                         </div>
+                            <label for="floatingText2">Last Name</label>
                           <div class="form-floating mb-3">
                             <input name="lname" type="text" class="form-control bg-white" id="floatingText2" placeholder="LastName" >
                            
-                            <label for="floatingText2">Last Name</label>
+                        
                         </div>
+                           <label for="floatingInput">Email address</label>
                         <div class="form-floating mb-3">
                             <input name="email" type="email" class="form-control bg-white" id="floatingInput" placeholder="name@example.com">
                            
-                            <label for="floatingInput">Email address</label>
+                         
                         </div>
+                         <label for="floatingTel">Phone number</label>
                          <div class="form-floating mb-3">
                             <input name="phonenumber" type="tel" class="form-control bg-white" id="floatingTel" placeholder="jhondoe">
                        
-                            <label for="floatingTel">Phone number</label>
+                           
                         </div>
+                         <label for="floatingPassword">Password</label>
                         <div class="form-floating mb-4">
                             <input name="password" type="password" class="form-control bg-white" id="floatingPassword" placeholder="Password">
                              
-                            <label for="floatingPassword">Password</label>
+                           
                         </div>
+                          <label for="floatingConfirmPassword">Confirm Password</label>
                          <div class="form-floating mb-4">
+                           
                             <input name="confirmpassword" type="password" class="form-control bg-white"  id="floatingConfirmPassword" placeholder="Confirm Password">
                          
-                            <label for="floatingConfirmPassword">Confirm Password</label>
+                           
                         </div>
-                        <button type="submit" class="btn btn-dark py-3 w-100 mb-4" >Sign Up</button>
+                        <button type="submit" class="btn py-3 w-100 mb-4 text-white" style="background-color:rgb(6, 29, 6) ;" >Sign Up</button>
                         <p class="text-center mb-0 text-dark">Already have an Account? <a href="/login"  style="color: blue;">Login</a></p>
                        
                         </form>

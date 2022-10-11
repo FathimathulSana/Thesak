@@ -4,10 +4,10 @@
                     <div class="bg-white rounded p-sm-5" style="border: 5px solid black ;">
                        
                       <h2 style="text-decoration: underline;" class="text-center text-dark fw-normal">Add Categories</h2>
-                <form action="/admin/add-category" method="post" id="addcategory" class="mt-5">
+                <form action="/admin/add-category" method="post" class="mt-5">
                 <div class="form-outline form-white mb-4">
                     <label for="product name">Category Name</label>
-                    <input type="text" id="name" name="cname" class="form-control form-control-lg bg-white"/>
+                    <input type="text" id="name" name="cname" class="form-control form-control-lg bg-white" required/>
                      {{#if msg}}
                        <p class="text-danger">{{msg}}</p>
                         {{/if}}

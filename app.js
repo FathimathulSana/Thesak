@@ -9,7 +9,6 @@ const session = require('express-session');
 const adminRouter = require('./routes/admin');
 const usersRouter = require('./routes/users');
 const hbs=require('express-handlebars');
-const fileUpload = require('express-fileUpload')
 mongoose.connect('mongodb://localhost:27017/thesak',{
        useNewUrlParser:true,
        useCreateIndex:true,
@@ -31,7 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(fileUpload())
+
 app.use(session({ secret: "key", resave: false, saveUninitialized: true, cookie: { maxAge: 1 * 60 * 60 * 1000 } }));
 
 

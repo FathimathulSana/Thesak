@@ -25,6 +25,7 @@ exports.LoginAction=async function(req,res,next){
     console.log('user not found');
     const correct=await bcrypt.compare(req.body.password,userData.password);
     if(!correct) return res.render('user//userLogin',{msg:'password incorrect'})
+    if(userData.active == false) res.render('user//userLogin',{msg:'User does not exist'})
     req.session.userLoggedin = true;
      res.render('index',{layout:'user-layout',user:true})
 }

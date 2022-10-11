@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
+
 const signupSchema=new mongoose.Schema({
     fname:String,
     lname:String,
@@ -14,7 +15,10 @@ const signupSchema=new mongoose.Schema({
         type:Boolean,
         default:true
     }
-})
+});
+
+
+
 signupSchema.pre("save", async function(next){
       
     // console.log(`the current pass is ${this.password}`);

@@ -27,9 +27,9 @@
                                     <td>{{this.phonenumber}}</td>
                                     <td>
                                         {{#if active}}
-                                        <a href="/admin/blocked/{{this._id}}" ><button onclick="return confirm('Are you sure to block this user?')" type="button" class="btn btn-success m-2">Block</button></a>
+                                        <a href="/admin/blocked/{{this._id}}" ><button onclick="return confirm('Are you sure to block this user?')" type="button" class="btn m-2 text-white" style="background-color:rgb(6, 29, 6) ;">Block</button></a>
                                         {{else}}
-                                        <a href="/admin/unblocked/{{this._id}}"><button onclick="return confirm('Are you sure to unblock this user?')" type="button" class="btn btn-danger m-2">Unblock</button></a>
+                                        <a href="/admin/unblocked/{{this._id}}"><button onclick="return confirm('Are you sure to unblock this user?')" type="button" class="btn m-2 text-white" style="background-color:rgb(169, 19, 19) ">Unblock</button></a>
                                        {{/if}} 
                                     </td>
                                 </tr>

@@ -41,7 +41,8 @@ $("#signupform").validate({
        },
        confirmpassword:{
         required:true,
-        equalTo:"#floatingPassword"
+        equalTo:"#floatingPassword",
+        Name:false
        }
     },
     messages:{
@@ -54,7 +55,7 @@ $("#signupform").validate({
        },
        password:{
            required:"Please provide a password",
-           minlength:"Your password must be atleast 8 characters"
+           minlength:"password must be atleast 8 characters"
        },
        confirmpassword:{
             required:"Please provide a password", 

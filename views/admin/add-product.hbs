@@ -8,18 +8,15 @@
                 <form action="/admin/add-product" method="post" enctype="multipart/form-data" id="adduserform" class="mt-5">
                 <div class="form-outline form-white mb-4">
                     <label for="product name">Product Name</label>
-                    <input type="text" id="name" name="fname" class="form-control form-control-lg bg-white" placeholder="Product Name" />
+                    <input type="text" id="name" name="productname" class="form-control form-control-lg bg-white" placeholder="Product Name" />
                    
                   </div>
                     <div class="form-group">
                        <label for="exampleFormControlSelect1">Brand</label>
-                   <select class="form-control bg-white" id="exampleFormControlSelect1">
-                     <option>GUCCI</option>
-                     <option>TED BAKER</option>
-                     <option>PRADA</option>
-                     <option>CALVIN KLEIN</option>
-                     <option>LOUIS VUITTON</option>
-                     <option>CHANEL</option>
+                   <select class="form-control bg-white" name="cname" id="exampleFormControlSelect1">
+                    {{#each categoryData}}
+                     <option value="{{this._id}}">{{this.cname}}</option>
+                    {{/each}}
                    </select>
                  </div>
                  <div class="d-flex my-1">
@@ -34,18 +31,18 @@
                   </div>
                  <div class="form-group">
                 <label for="exampleFormControlTextarea1">Description</label>
-                 <textarea class="form-control bg-white" id="exampleFormControlTextarea1" placeholder="Description" rows="3"></textarea>
+                 <textarea class="form-control bg-white" name="description" id="exampleFormControlTextarea1" placeholder="Description" rows="3"></textarea>
                 </div>
                
-                   <div class="form-group">
+                   {{!-- <div class="form-group">
                 <label for="exampleFormControlTextarea1">Product Details</label>
                  <textarea class="form-control bg-white" id="exampleFormControlTextarea1" placeholder="Details" rows="3"></textarea>
-                </div>
+                </div> --}}
                     
-                    <label for="formFileMultiple" class="form-label">Multiple files input example</label>
-                                <input class="form-control bg-white" type="file" id="formFileMultiple" multiple>
+                    <label for="formFileMultiple" class="form-label">Product images</label>
+                                <input class="form-control bg-white" name="images" type="file" id="formFileMultiple" multiple>
                    <br>
-                   <button type="submit" class="btn py-3 w-100 mb-4" style="background-color:rgb(6, 29, 6) ;">Add</button>
+                   <button type="submit" class="btn py-3 w-100 mb-4 text-white" style="background-color:rgb(6, 29, 6) ;">Add</button>
                 </form>
                 </div>
             </div>

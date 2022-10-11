@@ -23,9 +23,10 @@
                                    
                                     <td>
                                        
-                                        <button  type="button" class="btn m-2 text-white" style="background-color:rgb(6, 29, 6) ;">Edit</button></a>
+                                      <a href="/admin/edit-category/{{this._id}}"> <button  type="button" class="btn m-2 text-white" style="background-color:rgb(6, 29, 6) ;">Edit</button></a>
                                       
-                                        <button type="button" class="btn m-2 text-white" style="background-color:rgb(169, 19, 19) ">Delete</button></a>
+                                       <a href="/admin/delete-category/{{this._id}}"><button onclick="return confirm('Are you sure about Delete this Category?')"
+                                        type="button" class="btn m-2 text-white" style="background-color:rgb(169, 19, 19) ">Delete</button></a>
                                      
                                     </td>
                                 </tr>
