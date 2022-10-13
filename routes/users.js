@@ -5,6 +5,7 @@ const app = require('../app');
 
 const userController = require("../controller/user-controller");
 const adminController=require('../controller/admin-controller');
+const otpController = require('../controller/otp-controller');
 
 
 const bcrypt = require("bcrypt");
@@ -20,7 +21,8 @@ const bcrypt = require("bcrypt");
  router.get('/userLogout',userController.getHome)
 //  router.get('/userLogout',userController.userLogout)
 //   router.get('/signup',userController.getUserLogin);
- 
+ router.get('/otp',userController.getOtp);
+router.post('/otp',userController.postOtp);
  
  
  

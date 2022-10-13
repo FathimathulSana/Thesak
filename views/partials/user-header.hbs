@@ -62,18 +62,18 @@
 					</div>
 
 					<div class="right-top-bar flex-w h-full">
-						{{#if user}}
-                          <a href="/userLogout" class="flex-c-m trans-04 p-lr-25">
+						{{#if notuser}}
+                          <a href="/Login" class="flex-c-m trans-04 p-lr-25">
+						Login/Signup
+						</a>
+						{{else}}
+						
+						<a href="/userLogout" class="flex-c-m trans-04 p-lr-25">
 						Logout
 						</a>
 						<a href="" class="flex-c-m trans-04 p-lr-25">
 							<img src="/admin/img/icons8-male-user-24.png" alt="profile">
 						</a>
-						{{else}}
-						<a href="/Login" class="flex-c-m trans-04 p-lr-25">
-						Login/Signup
-						</a>
-						
 						{{/if}}
 
 						

@@ -5,7 +5,7 @@ const adminController=require('../controller/admin-controller');
 const mongoose=require('mongoose');
  const multer = require('multer');
  const path = require('path');
- 
+ const sessionCheck = require('../middleware/session')
 
 
  //set storage engine-multer//
@@ -29,32 +29,33 @@ const upload = multer({ storage: storage });
 /* Login page*/
 router.get('/',adminController.getAdmin);
 router.post('/',adminController.getAdminPanel);
-router.get("/admin",adminController.getAdminPanels)
+router.get("/admin",sessionCheck.adminSession,adminController.getAdminPanels)
 router.get('/logout',adminController.logout);
 
 /*User management*/
-router.get('/allUsers',adminController.getUsers);
+router.get('/allUsers',sessionCheck.adminSession,adminController.getUsers);
 
-router.get('/blocked/:id',adminController.getBlocked);
-router.get('/unblocked/:id',adminController.getUnBlocked);
+router.get('/blocked/:id',sessionCheck.adminSession,adminController.getBlocked);
+router.get('/unblocked/:id',sessionCheck.adminSession,adminController.getUnBlocked);
 
  /*category management */
-router.get('/category',adminController.getCategory);
-router.get('/add-category',adminController.getAddCategory);
+router.get('/category',sessionCheck.adminSession,adminController.getCategory);
+router.get('/add-category',sessionCheck.adminSession,adminController.getAddCategory);
 
-router.post('/add-category',adminController.getAddCategories);
-router.get('/edit-category/:id',adminController.getEdit);
- router.post('/edit-categories/:id',adminController.getEdited);
+router.post('/add-category',sessionCheck.adminSession,adminController.getAddCategories);
+router.get('/edit-category/:id',sessionCheck.adminSession,adminController.getEdit);
+ router.post('/edit-categories/:id',sessionCheck.adminSession,adminController.getEdited);
 
- router.get('/delete-category/:id',adminController.getDeleteCategory);
+ router.get('/delete-category/:id',sessionCheck.adminSession,adminController.getDeleteCategory);
 
  /*product management*/
 
- router.get('/products',adminController.getProducts);
- router.get('/add-product',adminController.getAddProduct);
- router.post('/add-product' ,upload.array('images', 4),adminController.postAddProduct);
- router.get('/edit-products/:id',adminController.getEditProduct);
- router.post('/edit-products/:id',upload.array('images',4),adminController.postEditProduct);
+ router.get('/products',sessionCheck.adminSession,adminController.getProducts);
+ router.get('/add-product',sessionCheck.adminSession,adminController.getAddProduct);
+ router.post('/add-product' ,sessionCheck.adminSession,upload.array('images', 4),adminController.postAddProduct);
+ router.get('/edit-products/:id',sessionCheck.adminSession,adminController.getEditProduct);
+ router.post('/edit-products/:id',sessionCheck.adminSession,upload.array('images',4),adminController.postEditProduct);
+ router.get('/delete-products/:id',sessionCheck.adminSession,adminController.getDeleteProduct)
 
 
 module.exports = router;

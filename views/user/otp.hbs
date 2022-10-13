@@ -1,0 +1,37 @@
+<body>
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="card text-center">
+            <div class="card-header p-5">
+                <img src="/admin/img/TheSak.png">
+                <h5 class="mb-2 text-dark">OTP VERIFICATION</h5>
+                <div>
+                    <small>code has been send to +91****{{phonenumber}}</small>
+                </div>
+            </div>
+
+            <form action="/otp" id="otp-form" method="post">
+                <div class="form-outline mb-4">
+                    <input type="tel" name="otp" id="form3Example4cdg" class="form-control form-control-lg bg-white"
+                        placeholder="OTP" />
+                    {{!-- <label class="form-label" for="form3Example4cdg">Password</label> --}}
+                </div>
+                {{#if invalid}}
+                <p class="text-danger">{{invalid}}</p>
+
+
+                {{/if}}
+                <div>
+
+                    <small>
+                        didn't get the otp
+                        <a href="#" class="text-decoration-none">Resend</a>
+                    </small>
+                </div>
+                <div class="mt-3 mb-5">
+                    <button class="btn btn-success px-4 verify-btn" type="submit">verify</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</body>

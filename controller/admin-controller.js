@@ -6,10 +6,12 @@ const fs=require('fs');
 const { updateOne, find } = require("../model/userModel");
 const Category = require("../model/categoryModel");
 const multer=require('multer');
+const session = require("express-session");
 
 const Product = require("../model/productModel");
 
 const admin=('../model/adminModel');
+
 
 //----------------------------------------------------------------------------------//
 const adminMail="admin@thesak.com";
@@ -18,23 +20,24 @@ const adminPassword=12345678;
 
 //admin login page//
 exports.getAdmin=function(req,res,next){
-    res.render('admin/admin-login',{layout:'signup-layout'});
+    res.render('admin/admin-login');
 }
 //get admin panel//
 exports.getAdminPanels=function(req,res){
-    res.render("admin/admin-panel",{layout:'admin-layout',admin:true})
+    
+    res.render("admin/admin-panel",{layout:'admin-layout'})
 }
 
 
 exports.getAdminPanel=function(req,res,next){
     if((adminMail==req.body.email) && (adminPassword==req.body.password)){
-        req.session.adminLoggedIn = true;
+        req.session.loggedIn=true;
     
-        res.render("admin/admin-panel",{layout:'admin-layout',admin:true});
+        res.render("admin/admin-panel",{layout:'admin-layout'});
     }else{
         // res.send("password or id incorrect");
         req.session.loginerr = true;
-        res.render('admin/admin-login',{layout:'signup-layout',loginerr: req.session.loginerr});
+        res.render('admin/admin-login',{loginerr: req.session.loginerr});
         req.session.loginerr = false;
     }
 };
@@ -43,7 +46,7 @@ exports.getAdminPanel=function(req,res,next){
 //get users//
 exports.getUsers=async function(req,res){
     const userDetails=await User.find().lean();
-    res.render('admin/view-users',{userDetails,layout:'admin-layout',admin:true});
+    res.render('admin/view-users',{userDetails,layout:'admin-layout'});
 };
 
     exports.logout=function (req, res, next) {
@@ -77,13 +80,13 @@ exports.getUnBlocked=async function(req,res){
 
 exports.getCategory=async function(req,res){
     const categoryDetails=await Category.find().lean();
-    res.render('admin/view-category',{categoryDetails,layout:'admin-layout',admin:true});
+    res.render('admin/view-category',{categoryDetails,layout:'admin-layout'});
 };
 
 //get add-category//
 
 exports.getAddCategory=function(req,res){
-    res.render('admin/add-category',{layout:'admin-layout',admin:true});
+    res.render('admin/add-category',{layout:'admin-layout'});
 }
 
 //get edit-category//
@@ -91,7 +94,7 @@ exports.getEdit=async function(req,res){
    
     const data=await Category.findOne({ _id:req.params.id },{cname:1}).lean();
      let id=req.params.id;
-    res.render('admin/edit-category',{data,id,layout:'admin-layout',admin:true});
+    res.render('admin/edit-category',{data,id,layout:'admin-layout'});
 }
 
 //edit category//
@@ -138,7 +141,7 @@ exports.getAddCategories=async function(req,res,next){
         console.log(req.body.cname);
         res.redirect('/admin/category');
     }else{
-        res.render('admin//add-category',{layout:'admin-layout',msg:'This category is alredy exist',admin:true})
+        res.render('admin//add-category',{layout:'admin-layout',msg:'This category is alredy exist'})
     }
 
   }
@@ -150,13 +153,13 @@ exports.getAddCategories=async function(req,res,next){
 
 exports.getProducts=async function(req,res){
     const productDetails=await Product.find().populate('cname').lean();
-    res.render('admin/view-products',{productDetails,layout:'admin-layout',admin:true});
+    res.render('admin/view-products',{productDetails,layout:'admin-layout'});
 }
 
 //get add-product//
 exports.getAddProduct= async function(req,res){
     const categoryData=await Category.find().lean();
-    res.render('admin/add-product',{categoryData,layout:'admin-layout',admin:true});
+    res.render('admin/add-product',{categoryData,layout:'admin-layout'});
 }
 
 //post add-product//
@@ -185,7 +188,7 @@ exports.postAddProduct=async function(req,res){
     const id=req.params.id;
     const productData=await Product.findOne({_id:id}).lean();
     const categoryData=await Category.find().lean()
-    res.render('admin/edit-products',{productData,categoryData,layout:'admin-layout',admin:true});
+    res.render('admin/edit-products',{productData,categoryData,layout:'admin-layout'});
 
    };
 
@@ -227,3 +230,10 @@ exports.postAddProduct=async function(req,res){
       console.log(req.body);
        res.redirect('/admin/products');
    };
+
+   //get delete-product//
+
+   exports.getDeleteProduct=async function(req,res){
+    await Product.findByIdAndDelete(req.params.id);
+    res.redirect('/admin/products');
+   }

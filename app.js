@@ -4,19 +4,19 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose=require('mongoose');
+
+var dotenv = require('dotenv');
+dotenv.config();
+
 const session = require('express-session');
+const nocache = require("nocache");
 
 const adminRouter = require('./routes/admin');
 const usersRouter = require('./routes/users');
 const hbs=require('express-handlebars');
-mongoose.connect('mongodb://localhost:27017/thesak',{
-       useNewUrlParser:true,
-       useCreateIndex:true,
-       useFindAndModify:false,
-       useUnifiedTopology:true
-})
-.then(()=>console.log('database connected'))
-.catch((err)=>console.log(err));
+
+const connectDatabase = require('./config/connection')
+
 
 const app = express();
 
@@ -25,14 +25,22 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.engine('hbs', hbs.engine({extname:'hbs',defaultLayout:'layout',layoutsDir:__dirname+'/views/layout/',partialsDir:__dirname+'/views/partials'}));
 
+app.use(nocache());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secret: "key", resave: false, saveUninitialized: true, cookie: { maxAge: 1 * 60 * 60 * 1000 } }));
 
+ const oneDay = 1000 * 60 * 60 * 24;
+ app.use(session({
+   secret: "thisismysecrctekey",
+   saveUninitialized: true,
+   cookie: { maxAge: oneDay },
+   resave: false
+ }));
+ 
 
 app.use('/', usersRouter);
 app.use('/admin', adminRouter);
