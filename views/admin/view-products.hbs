@@ -14,6 +14,7 @@
       <th scope="col">Category</th>
       <th scope="col">Stock</th>
       <th scope="col">Price</th>
+      <th scope="col">Discount</th>
        <th scope="col">Manage</th>
      
     </tr>
@@ -24,9 +25,10 @@
      <th scope="row">{{@index}}</th>
       <td><img style="width: 50px;" src="/productImageUploads/{{this.imagepath.[0]}}" alt=""></td>
       <td>{{this.productname}}</td>
-      <td>{{this.cname.cname}}</td>
+      <td>{{this.category.category}}</td>
       <td>{{this.stock}}</td>
       <td>{{this.price}}</td>
+      <td>{{this.discount}}</td>
       <td>
           <a href="/admin/edit-products/{{this._id}}"> <button  type="button" class="btn m-2 text-white" style="background-color:rgb(6, 29, 6) ;">Edit</button></a>
                                       

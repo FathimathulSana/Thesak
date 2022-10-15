@@ -20,7 +20,14 @@ const adminPassword=12345678;
 
 //admin login page//
 exports.getAdmin=function(req,res,next){
+    let loggedIn=req.session.loggedIn;
+    if(loggedIn){
+        res.render("admin/admin-panel",{layout:'admin-layout'})
+    }
+    else
+    {
     res.render('admin/admin-login');
+    }
 }
 //get admin panel//
 exports.getAdminPanels=function(req,res){
@@ -75,165 +82,3 @@ exports.getUnBlocked=async function(req,res){
 }
 //--------------------------------------------------------------------------//
 
-//  category 
-
-
-exports.getCategory=async function(req,res){
-    const categoryDetails=await Category.find().lean();
-    res.render('admin/view-category',{categoryDetails,layout:'admin-layout'});
-};
-
-//get add-category//
-
-exports.getAddCategory=function(req,res){
-    res.render('admin/add-category',{layout:'admin-layout'});
-}
-
-//get edit-category//
-exports.getEdit=async function(req,res){
-   
-    const data=await Category.findOne({ _id:req.params.id },{cname:1}).lean();
-     let id=req.params.id;
-    res.render('admin/edit-category',{data,id,layout:'admin-layout'});
-}
-
-//edit category//
-
-exports.getEdited=async function(req,res){
-    console.log('ivide ethiii');
-     await Category.findOneAndUpdate({_id:req.params.id},{
-        $set:{
-            cname:req.body.cname
-        }
-     });
-     console.log(req.body);
-    res.redirect('/admin/category');
-   
-}
-
-//Delete category//
-
-exports.getDeleteCategory=async function(req,res){
-    await Category.findByIdAndDelete(req.params.id);
-    res.redirect('/admin/category')
-}
-
-
-//add category//
-
-exports.getAddCategories=async function(req,res,next){
-  const category_data=await Category.find();
-  if(category_data.length>0){
-    console.log(req.body.cname)
-    let checking=false;
-    for(let i=0;i<category_data.length;i++){
-        if(category_data[i]['cname'].toLowerCase() === req.body.cname.toLowerCase()){
-            console.log('ethi ehti');
-            checking=true;
-            break;
-        }
-    }
-    if(checking == false){
-        const newCategory=new Category({
-            cname:req.body.cname
-        });
-        newCategory.save();
-        console.log(req.body.cname);
-        res.redirect('/admin/category');
-    }else{
-        res.render('admin//add-category',{layout:'admin-layout',msg:'This category is alredy exist'})
-    }
-
-  }
-   
-}
-
-// -------------------------------------------------------------------//
-//product management//
-
-exports.getProducts=async function(req,res){
-    const productDetails=await Product.find().populate('cname').lean();
-    res.render('admin/view-products',{productDetails,layout:'admin-layout'});
-}
-
-//get add-product//
-exports.getAddProduct= async function(req,res){
-    const categoryData=await Category.find().lean();
-    res.render('admin/add-product',{categoryData,layout:'admin-layout'});
-}
-
-//post add-product//
-exports.postAddProduct=async function(req,res){
-    console.log("req.body::",req.body);
-    console.log("uploaded",req.files);
-        let productName = await Product.findOne({ productname: req.body.productname }).lean();
-        console.log(productName);
-        if (productName) return res.send("product already exists");
-        // console.log(req.files);
-        //  const files=req.body.images;
-        const arrImages = req.files.map((value) => value.filename);
-        console.log(arrImages);
-        req.body.imagepath = arrImages;
-        // console.log(req.body);
-        // console.log(req.body)
-        
-        await Product.create(req.body);
-        res.redirect("/admin/products");
-      };
-
-   //get edit-product//
-
-   exports.getEditProduct=async function(req,res){
-
-    const id=req.params.id;
-    const productData=await Product.findOne({_id:id}).lean();
-    const categoryData=await Category.find().lean()
-    res.render('admin/edit-products',{productData,categoryData,layout:'admin-layout'});
-
-   };
-
-   //post edit-products//
-   exports.postEditProduct=async function(req,res){
-    console.log("postedited");
-    const arrImages = req.files.map((value) => value.filename);
-    if(arrImages[0]){
-        const imageData=await Product.findOne({_id:req.params.id},{imagepath:1 , _id:0}).lean();
-        console.log(imageData);
-        imageData.imagepath.map((i) => fs.unlinkSync('public/productImageUploads/'+i));
-        req.body.imagepath = arrImages;
-        await Product.findOneAndUpdate({ _id : req.params.id },
-          {
-            $set: { 
-                productname: req.body.productname ,
-                cname: req.body.cname,
-                stock:req.body.stock,
-                price:req.body.price,
-                description:req.body.description,
-                imagepath:req.body.imagepath
-            },
-          }
-        );
-      } else {
-        await Product.findOneAndUpdate(
-          { _id: req.params.id },
-          {
-            $set: {
-                productname: req.body.productname ,
-                cname: req.body.cname,
-                stock:req.body.stock,
-                price:req.body.price,
-                description:req.body.description,
-            }
-          }
-        );
-      }
-      console.log(req.body);
-       res.redirect('/admin/products');
-   };
-
-   //get delete-product//
-
-   exports.getDeleteProduct=async function(req,res){
-    await Product.findByIdAndDelete(req.params.id);
-    res.redirect('/admin/products');
-   }

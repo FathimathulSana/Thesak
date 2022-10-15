@@ -13,9 +13,9 @@
                   </div>
                     <div class="form-group">
                        <label for="exampleFormControlSelect1">Brand</label>
-                   <select class="form-control bg-white" name="cname" id="exampleFormControlSelect1">
+                   <select class="form-control bg-white" name="category" id="exampleFormControlSelect1">
                     {{#each categoryData}}
-                     <option value="{{this._id}}">{{this.cname}}</option>
+                     <option value="{{this._id}}">{{this.category}}</option>
                     {{/each}}
                    </select>
                  </div>
@@ -27,6 +27,10 @@
                   <div class="form-outline form-white mb-4 ml-auto">
                     <label for="stock">Price</label>
                     <input type="text" id="price" name="price" class="form-control form-control-lg w-50 bg-white" />
+                  </div>
+                   <div class="form-outline form-white mb-4 ml-auto">
+                    <label for="stock">Discount</label>
+                    <input type="text" id="discount" name="discount" class="form-control form-control-lg w-50 bg-white" />
                   </div>
                   </div>
                  <div class="form-group">

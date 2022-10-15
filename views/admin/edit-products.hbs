@@ -13,9 +13,9 @@
                   </div>
                     <div class="form-group">
                        <label for="exampleFormControlSelect1">Brand</label>
-                   <select class="form-control bg-white" name="cname" id="exampleFormControlSelect1">
+                   <select class="form-control bg-white" name="category" id="exampleFormControlSelect1">
                     {{#each categoryData}}
-                     <option value="{{this._id}}">{{this.cname}}</option>
+                     <option value="{{this._id}}">{{this.category}}</option>
                     {{/each}}
                    </select>
                  </div>
@@ -42,7 +42,7 @@
                     <label for="formFileMultiple" class="form-label">Product images</label>
                                 <input class="form-control bg-white" name="images" type="file" id="formFileMultiple" multiple>
                    <br>
-                   <button type="submit" class="btn py-3 w-100 mb-4 text-white" style="background-color:rgb(6, 29, 6) ;">Add</button>
+                   <button type="submit" class="btn py-3 w-100 mb-4 text-white" style="background-color:rgb(6, 29, 6) ;">Edit</button>
                 </form>
                 </div>
             </div>

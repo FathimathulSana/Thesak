@@ -5,7 +5,7 @@ const productSchema=new mongoose.Schema({
     productname:{
        type:String
     },
-    cname:{
+    category:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Category'
     },
@@ -13,6 +13,9 @@ const productSchema=new mongoose.Schema({
         type:Number
      },
     price:{
+        type:Number
+    },
+    discount:{
         type:Number
     },
     description:{
