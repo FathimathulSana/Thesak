@@ -6,7 +6,7 @@ const sessionCheck = require('../middleware/session')
 
 const userController = require("../controller/user-controller");
 const adminController=require('../controller/admin-controller');
-const otpController = require('../controller/otp-controller');
+const cartController = require("../controller/cart-controller");
 
 
 const bcrypt = require("bcrypt");
@@ -16,6 +16,7 @@ const bcrypt = require("bcrypt");
  router.get('/Login',userController.getLogin);
  router.post('/Login',userController.LoginAction);
 
+
  router.get('/userSignupPage',userController.getSignup);
  router.post('/signup',userController.SignupAction);
  router.get('/login',userController.getLogin);
@@ -24,8 +25,14 @@ const bcrypt = require("bcrypt");
 //   router.get('/signup',userController.getUserLogin);
  router.get('/otp',sessionCheck.userSession,userController.getOtp);
 router.post('/otp',sessionCheck.userSession,userController.postOtp);
+
+//product view//
+
+router.get('/quickView/:id/',userController.getProductView);   
  
- 
+ //cart//
+
+ router.get('/addToCart/:id',sessionCheck.userSession,cartController.addToCart);
  
 
 module.exports = router;

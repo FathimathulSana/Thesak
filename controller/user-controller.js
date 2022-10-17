@@ -13,10 +13,13 @@ const admin=('../model/userModel');
 exports.getHome=async function(req,res,next){
   let products = await Product.find().populate('category').lean();
    let userLoggedIn=req.session.userLoggedIn;
-   let username = req.session.name;
-   res.render('index',{userLoggedIn,products,layout:'user-layout'})
+   let username = req.session.name;  
+   let categoryDetails = await Category.find().lean();
+  //  console.log(products,"23456");
+   res.render('index',{userLoggedIn,products,categoryDetails,layout:'user-layout'})
    
 }
+
 exports.getLogout=function(req,res){
   req.session.userLoggedIn = false;
   console.log("logged out");
@@ -98,4 +101,19 @@ exports.postOtp = function (req, res, next) {
       });
     
 
+}
+
+// ----------------------product-view----------------------//
+
+exports.getProductView=async function(req,res) {  
+  // console.log('111')  
+  // console.log(req.params,"aaaaaaaaaaaaaaaaaaaaa")
+  let  id=req.params.id;
+   let products = await Product.find().lean();
+  // console.log(id);
+  // console.log(req.params,'PARAMS');
+  let productDetails=await Product.find({_id:id}).populate('category').lean();
+//  console.log(productDetails,'here');
+
+  res.render('user/product-view',{layout:'user-layout',productDetails,products});
 }
