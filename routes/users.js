@@ -7,6 +7,7 @@ const sessionCheck = require('../middleware/session')
 const userController = require("../controller/user-controller");
 const adminController=require('../controller/admin-controller');
 const cartController = require("../controller/cart-controller");
+const productController=require('../controller/product-controller');
 
 
 const bcrypt = require("bcrypt");
@@ -32,7 +33,10 @@ router.get('/quickView/:id/',userController.getProductView);
  
  //cart//
 
- router.get('/addToCart/:id',sessionCheck.userSession,cartController.addToCart);
- 
+ router.post('/addToCart',sessionCheck.userSession,cartController.addToCart);
+ router.get('/viewCart',sessionCheck.userSession,cartController.getViewCart)
+
+ router.post('/deleteCart',sessionCheck.userSession,cartController.deleteCart)
+ router.post('/incrementValue',sessionCheck.userSession,cartController.incrementValue);
 
 module.exports = router;

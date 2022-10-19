@@ -22,7 +22,7 @@
   <tbody>
     {{#each productDetails}}
     <tr>
-     <th scope="row">{{@index}}</th>
+     <th scope="row">{{inc @ index}}</th>
       <td><img style="width: 50px;" src="/productImageUploads/{{this.imagepath.[0]}}" alt=""></td>
       <td>{{this.productname}}</td>
       <td>{{this.category.category}}</td>

@@ -23,7 +23,32 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-app.engine('hbs', hbs.engine({extname:'hbs',defaultLayout:'layout',layoutsDir:__dirname+'/views/layout/',partialsDir:__dirname+'/views/partials'}));
+app.engine('hbs', hbs.engine({extname:'hbs',defaultLayout:'layout',layoutsDir:__dirname+'/views/layout/',partialsDir:__dirname+'/views/partials',
+
+
+helpers: {
+  inc: function (value,context) {
+    return parseInt(value) + 1;
+  },
+  formatString(date) {
+    newdate = date.toUTCString()
+    return newdate.slice(0, 16)
+  },
+  total: function (amount, discount, quantity) {
+    return (amount - discount) * quantity;
+  },
+  singleTotal: function (amount, discount) {
+    return (amount - discount);
+  }
+} 
+}));
+
+
+
+
+
+
+
 
 app.use(nocache());
 app.use(logger('dev'));

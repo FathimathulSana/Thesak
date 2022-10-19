@@ -11,7 +11,8 @@ module.exports = {
         if (req.session.userLoggedIn){
             next()
         }else{
-            res.redirect('/userLogin');
+         
+            res.redirect('/Login');
         }
-    }
+    },
 }

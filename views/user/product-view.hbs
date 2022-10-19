@@ -1,4 +1,5 @@
 
+
 <body class="animsition">
 	
 	
@@ -136,11 +137,14 @@
 											<i class="fs-16 zmdi zmdi-plus"></i>
 										</div>
 									</div>
-									<a href="/addToCart/{{productDetails._id}}">
-									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" onclick="alert()">
+									{{#if userLoggedIn}}
+									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail " 
+									onclick="addToCart('{{productDetails.[0]._id}}')">
 										Add to cart
 									</button>
-									</a>
+								{{else}}
+								<a href="/Login" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04" >Add to cart</a>
+								{{/if}}
 								</div>
 							</div>	
 						</div>
@@ -938,4 +942,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			</div>
 		</div>
 	</div>
+
+	
+	 
+	
+
 

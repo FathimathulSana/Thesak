@@ -87,6 +87,7 @@ exports.postAddProduct=async function(req,res){
                 category: req.body.category,
                 stock:req.body.stock,
                 price:req.body.price,
+                discount:req.body.discount,
                 description:req.body.description,
             }
           }

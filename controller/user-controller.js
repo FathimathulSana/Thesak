@@ -20,12 +20,14 @@ exports.getHome=async function(req,res,next){
    
 }
 
+
 exports.getLogout=function(req,res){
   req.session.userLoggedIn = false;
   console.log("logged out");
   res.redirect('/');
 }
 exports.getLogin=function(req,res,next){
+ 
     res.render('user/userLogin');
 }
 exports.LoginAction=async function(req,res,next){
@@ -108,12 +110,14 @@ exports.postOtp = function (req, res, next) {
 exports.getProductView=async function(req,res) {  
   // console.log('111')  
   // console.log(req.params,"aaaaaaaaaaaaaaaaaaaaa")
+  let userLoggedIn=req.session.userLoggedIn;
   let  id=req.params.id;
    let products = await Product.find().lean();
   // console.log(id);
   // console.log(req.params,'PARAMS');
   let productDetails=await Product.find({_id:id}).populate('category').lean();
 //  console.log(productDetails,'here');
+  let categoryDetails = await Category.find().lean();
 
-  res.render('user/product-view',{layout:'user-layout',productDetails,products});
+  res.render('user/product-view',{layout:'user-layout',productDetails,categoryDetails,products,userLoggedIn});
 }
