@@ -11,10 +11,11 @@ const Product = require("../model/productModel");
 const admin=('../model/userModel');
 
 exports.getHome=async function(req,res,next){
-  let products = await Product.find().populate('category').lean();
-   let userLoggedIn=req.session.userLoggedIn;
-   let username = req.session.name;  
-   let categoryDetails = await Category.find().lean();
+  const products = await Product.find().populate('category').lean();
+   const userLoggedIn=req.session.userLoggedIn;
+   console.log(userLoggedIn,'5555555555');
+   const username = req.session.name;  
+   const categoryDetails = await Category.find().lean();
   //  console.log(products,"23456");
    res.render('index',{userLoggedIn,products,categoryDetails,layout:'user-layout'})
    

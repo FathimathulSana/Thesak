@@ -46,6 +46,7 @@ module.exports={
     getViewCart:async function(req,res){
         let userLoggedIn=req.session.userLoggedIn;
         let userId=req.session.userId;
+        let categoryDetails = await Category.find().lean();
         cartDetails= await Cart.findOne({userId : userId}).populate("products.productId").lean();
         let totalAmount;
         if(cartDetails){
@@ -53,7 +54,7 @@ module.exports={
         }
      
 
-        res.render('user/view-cart',{cartDetails,totalAmount,layout:'user-layout',userLoggedIn})
+        res.render('user/view-cart',{categoryDetails,cartDetails,totalAmount,layout:'user-layout',userLoggedIn})
 
     },
 

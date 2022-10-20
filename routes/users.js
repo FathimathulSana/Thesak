@@ -8,6 +8,7 @@ const userController = require("../controller/user-controller");
 const adminController=require('../controller/admin-controller');
 const cartController = require("../controller/cart-controller");
 const productController=require('../controller/product-controller');
+const wishlistController=require('../controller/wishlist-controller');
 
 
 const bcrypt = require("bcrypt");
@@ -27,16 +28,22 @@ const bcrypt = require("bcrypt");
  router.get('/otp',sessionCheck.userSession,userController.getOtp);
 router.post('/otp',sessionCheck.userSession,userController.postOtp);
 
-//product view//
+//--------------------product view--------------//
 
 router.get('/quickView/:id/',userController.getProductView);   
  
- //cart//
+ //-------------------cart----------------------//
 
  router.post('/addToCart',sessionCheck.userSession,cartController.addToCart);
  router.get('/viewCart',sessionCheck.userSession,cartController.getViewCart)
 
  router.post('/deleteCart',sessionCheck.userSession,cartController.deleteCart)
  router.post('/incrementValue',sessionCheck.userSession,cartController.incrementValue);
+
+ //-------------------wish-list----------------------//
+
+ router.get('/wishList',sessionCheck.userSession,wishlistController.getWishList);
+ router.post('/addToWishlist',sessionCheck.userSession,wishlistController.postWishList);
+ router.post('/deleteWishlist',sessionCheck.userSession,wishlistController.deleteWishlist)
 
 module.exports = router;
