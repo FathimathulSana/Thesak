@@ -15,10 +15,7 @@ const signupSchema=new mongoose.Schema({
         type:Boolean,
         default:true
     },
-    otpVerified: {
-        type: Boolean,
-        default: false
-      }
+   
 });
 
 

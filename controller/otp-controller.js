@@ -12,14 +12,17 @@ const client = require('twilio')(accountSid, authToken, ServiceSID);
 //-------------------------send-otp----------------------//
 
 exports.sendOtp = async (userData) => {
-
+  console.log(userData);
     try {
+          console.log("66666666666666");
+          console.log(userData.phonenumber,"33333333333333");
         const data = await client.verify.v2.services(ServiceSID).verifications.create({
            
             to: `+91${userData.phonenumber}`,
             channel: 'sms'
           
-        })
+        },console.log("haayyy"))
+        console.log(data,"77777777777777");
     
     } catch (error) {
         console.log(error)
@@ -28,7 +31,7 @@ exports.sendOtp = async (userData) => {
 
 // ----------------------verify-otp-----------------------//
 
-exports.verifyOtp = async (otp,phonenumber) => {
+exports.verifyOtp = async (otpData,userData) => {
     // console.log("ethi",otp,phonenumber)
     try {
        return new Promise(async (resolve,reject) => {

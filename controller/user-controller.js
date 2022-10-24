@@ -95,20 +95,13 @@ try{
   const userData=await User.findOne({email:req.body.email});
   if(userData) return res.render('user//userSignup',{msg:'user already exist,enter a different mail id'});
 
-    const newUser=new User({
-        fname:req.body.fname,
-        lname:req.body.lname,
-        email:req.body.email,
-        phonenumber:req.body.phonenumber,
-        password:req.body.password,
-        confirmpassword:req.body.confirmpassword
-    });
-    newUser.save();
+    const newUser = await User.create(req.body);
+
     req.session.userLoggedIn=true;
    // req.session.userId = newUser._id;
     // console.log(req.body,"1111")
     const id = newUser._id;
-    req.session.phonenumber = req.body.phonenumber;
+   // req.session.phonenumber = req.body.phonenumber;
    otpController.sendOtp(newUser)
    res.render('user/otp',{id});
 
@@ -135,7 +128,7 @@ try{
   // -----------------------add-otp-------------------------//
 exports.postOtp = async function (req, res, next) {
   try{
-
+   console.log('post otp4444444444')
     const userdata = await User.findOne({ _id: req.params.id }).lean();
     let otps = req.body.otp;
     let verification = await otpController.verifyOtp(otps, userdata);
