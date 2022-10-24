@@ -1,37 +1,63 @@
-const User = require("../model/userModel");
 const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const mongoose = require("mongoose");
-const session =require("express-session")
-const Category = require("../model/categoryModel");
-const otpController = require('../controller/otp-controller');
-const Product = require("../model/productModel");
+const session =require("express-session");
 
+const otpController = require('../controller/otp-controller');
+
+const Category = require("../model/categoryModel");
+const Product = require("../model/productModel");
+const User = require("../model/userModel");
 const admin=('../model/userModel');
 
+//-------------------------get-homePage--------------------------//
 exports.getHome=async function(req,res,next){
+  try{
+
   const products = await Product.find().populate('category').lean();
    const userLoggedIn=req.session.userLoggedIn;
-   console.log(userLoggedIn,'5555555555');
+ 
    const username = req.session.name;  
    const categoryDetails = await Category.find().lean();
-  //  console.log(products,"23456");
-   res.render('index',{userLoggedIn,products,categoryDetails,layout:'user-layout'})
+ 
+   res.render('index',{userLoggedIn,products,categoryDetails,layout:'user-layout'});
+
+  }catch(error){
+    next(error)
+}
    
 }
 
+//---------------------------------log-out-----------------------------------//
 
-exports.getLogout=function(req,res){
+exports.getLogout=function(req,res,next){
+  try{
+
   req.session.userLoggedIn = false;
   console.log("logged out");
   res.redirect('/');
+
+}catch(error){
+  next(error)
 }
+}
+
+// ----------------------get-LoginPage------------------------//
 exports.getLogin=function(req,res,next){
- 
+ try{
+
     res.render('user/userLogin');
+
+  }catch(error){
+    next(error)
 }
+}
+
+//-------------------------add-login------------------------------//
+
 exports.LoginAction=async function(req,res,next){
+  try{
     // console.log('dfghj')
     if(!req.body.email || !req.body.password) return res.render('user//userLogin',{loginerr: true})
     let products = await Product.find().populate('category').lean();
@@ -43,17 +69,29 @@ exports.LoginAction=async function(req,res,next){
     if(!correct) return res.render('user//userLogin',{msg:'password incorrect'})
     if(userData.active == false) res.render('user//userLogin',{msg:'User does not exist'})
     req.session.userLoggedIn=true;
+    req.session.userId=userData._id;
     res.redirect('/');
+
+  }catch(error){
+    next(error)
 }
+}
+
+//-----------------------------get-signupPage-------------------------//
 
 exports.getSignup=function(req,res,next){
-    res.render('user/userSignup');
-}
-// exports.getUserLogin=function(req,res,next){
-//     res.render('user/userLogin');
-// }
-exports.SignupAction=async function(req,res,next){
+  try{
 
+    res.render('user/userSignup');
+
+  }catch(error){
+    next(error)
+}
+}
+
+//---------------------------post-signup--------------------------//
+exports.SignupAction=async function(req,res,next){
+try{
   const userData=await User.findOne({email:req.body.email});
   if(userData) return res.render('user//userSignup',{msg:'user already exist,enter a different mail id'});
 
@@ -67,58 +105,72 @@ exports.SignupAction=async function(req,res,next){
     });
     newUser.save();
     req.session.userLoggedIn=true;
-    req.session.userId = newUser._id;
+   // req.session.userId = newUser._id;
     // console.log(req.body,"1111")
+    const id = newUser._id;
     req.session.phonenumber = req.body.phonenumber;
-   otpController.sendOtp(req.body.phonenumber)
-   res.render('user/otp')
+   otpController.sendOtp(newUser)
+   res.render('user/otp',{id});
+
+  }catch(error){
+    next(error)
+}
 }
 
-//otp//
+//-------------------otp---------------------//
 
 
-exports.getOtp = function (req, res, next) {
+// exports.getOtp = function (req, res, next) {
+// try{
 
-   let userLoggedIn = req.session.userLoggedIn;
-    // console.log( "otpeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
-    res.render('user/otp', { userLoggedIn })
-  }
-exports.postOtp = function (req, res, next) {
-  let userId= req.session.id;
-  console.log(userId,"userID")
- console.log(req.body,"reqboy")
-    otpController.verifyOtp(req.body.otp, req.session.phonenumber).then((response) => {
-         
+//    let userLoggedIn = req.session.userLoggedIn;
+//     // console.log( "otpeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+//     res.render('user/otp', { userLoggedIn });
 
-        if (response) {
-          // console.log(response, "dataaaaaaaaaaaaaaaaaaaaaaaa");
-          // let userId= req.session.id
-          User.findOneAndUpdate({ userId }, { $set: { otpVerified: true } })
-          res.redirect('/Login')
-        }
-        else {
-            // console.log("haloooooooooooooooooooooooooooooooooooo")
-          res.redirect('/userSignupPage')
-        }
-    
-      });
-    
+//   }catch(error){
+//     next(error)
+// }
+//   }
+
+  // -----------------------add-otp-------------------------//
+exports.postOtp = async function (req, res, next) {
+  try{
+
+    const userdata = await User.findOne({ _id: req.params.id }).lean();
+    let otps = req.body.otp;
+    let verification = await otpController.verifyOtp(otps, userdata);
+    if (verification) {
+
+        req.session.userLogin = true;
+        req.session.userId = userdata._id;
+        res.redirect('/Login');
+    }
+    else {
+        await User.findOneAndDelete({ _id: req.params.id }).lean();
+        res.redirect('/userSignupPage')
+    }
+    }catch(error){
+      next(error)
+  }    
 
 }
 
 // ----------------------product-view----------------------//
 
-exports.getProductView=async function(req,res) {  
-  // console.log('111')  
-  // console.log(req.params,"aaaaaaaaaaaaaaaaaaaaa")
+exports.getProductView=async function(req,res,next) {  
+  try{
+
   let userLoggedIn=req.session.userLoggedIn;
   let  id=req.params.id;
    let products = await Product.find().lean();
-  // console.log(id);
-  // console.log(req.params,'PARAMS');
+
   let productDetails=await Product.find({_id:id}).populate('category').lean();
-//  console.log(productDetails,'here');
+
   let categoryDetails = await Category.find().lean();
 
   res.render('user/product-view',{layout:'user-layout',productDetails,categoryDetails,products,userLoggedIn});
+
+}catch(error){
+  next(error)
+}
 }

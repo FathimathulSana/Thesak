@@ -1,63 +1,86 @@
 const express = require("express");
 const router = express.Router();
-const adminController = require("../controller/admin-controller");
-const User = require("../model/userModel");
+const session = require("express-session");
+const multer=require('multer');
 const fs=require('fs');
+
+const adminController = require("../controller/admin-controller");
+
+const User = require("../model/userModel");
 const { updateOne, find } = require("../model/userModel");
 const Category = require("../model/categoryModel");
-const multer=require('multer');
-const session = require("express-session");
-
 const Product = require("../model/productModel");
-
 const admin=('../model/adminModel');
 
 
-//product management//
+//----------------------------product-management--------------------------------//
 
-exports.getProducts=async function(req,res){
+exports.getProducts=async function(req,res,next){
+  try{
+
     const productDetails=await Product.find().populate('category').lean();
     res.render('admin/view-products',{productDetails,layout:'admin-layout'});
+
+  }catch(error){
+    next(error)
+}
 }
 
-//get add-product//
-exports.getAddProduct= async function(req,res){
+//-----------------get-add-product---------------------//
+exports.getAddProduct= async function(req,res,next){
+  try{
+
     const categoryData=await Category.find().lean();
     res.render('admin/add-product',{categoryData,layout:'admin-layout'});
+
+  }catch(error){
+    next(error)
+}
 }
 
-//post add-product//
-exports.postAddProduct=async function(req,res){
+//-------------------add-product--------------------//
+exports.postAddProduct=async function(req,res,next){
+  try{
+
     console.log("req.body::",req.body);
     console.log("uploaded",req.files);
         let productName = await Product.findOne({ productname: req.body.productname }).lean();
         console.log(productName);
         if (productName) return res.send("product already exists");
-        // console.log(req.files);
-        //  const files=req.body.images;
+       
         const arrImages = req.files.map((value) => value.filename);
         console.log(arrImages);
         req.body.imagepath = arrImages;
-        // console.log(req.body);
-        // console.log(req.body)
+       
         
         await Product.create(req.body);
         res.redirect("/admin/products");
+
+      }catch(error){
+        next(error)
+    }
       };
 
-   //get edit-product//
+   //--------------------get-editProductPage------------------------//
 
-   exports.getEditProduct=async function(req,res){
+   exports.getEditProduct=async function(req,res,next){
+try{
 
     const id=req.params.id;
     const productData=await Product.findOne({_id:id}).lean();
     const categoryData=await Category.find().lean()
     res.render('admin/edit-products',{productData,categoryData,layout:'admin-layout'});
 
+  }catch(error){
+    next(error)
+}
+
    };
 
-   //post edit-products//
-   exports.postEditProduct=async function(req,res){
+   //-------------------------edit-products-----------------------------//
+   exports.postEditProduct=async function(req,res,next){
+    try{
+
     console.log("postedited");
     const arrImages = req.files.map((value) => value.filename);
     if(arrImages[0]){
@@ -95,11 +118,21 @@ exports.postAddProduct=async function(req,res){
       }
       console.log(req.body);
        res.redirect('/admin/products');
+
+      }catch(error){
+        next(error)
+    }
    };
 
-   //get delete-product//
+   //---------------delete-product-----------------//
 
-   exports.getDeleteProduct=async function(req,res){
+   exports.getDeleteProduct=async function(req,res,next){
+    try{
+
     await Product.findByIdAndDelete(req.params.id);
     res.redirect('/admin/products');
+
+  }catch(error){
+    next(error)
+}
    }

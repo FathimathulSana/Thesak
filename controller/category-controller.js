@@ -1,46 +1,59 @@
 const express = require("express");
+const session = require("express-session");
 const router = express.Router();
-const adminController = require("../controller/admin-controller");
-const User = require("../model/userModel");
+const multer=require('multer');
 const fs=require('fs');
+const adminController = require("../controller/admin-controller");
+
+
 const { updateOne, find } = require("../model/userModel");
 const Category = require("../model/categoryModel");
-const multer=require('multer');
-const session = require("express-session");
-
+const User = require("../model/userModel");
 const Product = require("../model/productModel");
-
 const admin=('../model/adminModel');
 
 
+//--------------------------get-category---------------------------------// 
 
 
-//  category 
+exports.getCategory=async function(req,res,next){
+    try{
 
-
-exports.getCategory=async function(req,res){
     const categoryDetails=await Category.find().lean();
     res.render('admin/view-category',{categoryDetails,layout:'admin-layout'});
+    }catch(error){
+        next(error)
+    }
 };
 
-//get add-category//
+//--------------------------get-add-category-----------------------------//
 
-exports.getAddCategory=function(req,res){
+exports.getAddCategory=function(req,res,next){
+    try{
     res.render('admin/add-category',{layout:'admin-layout'});
+    }catch(error){
+        next(error)
+    }
 }
 
-//get edit-category//
-exports.getEdit=async function(req,res){
-   
+//-------------------------get-edit-category-------------------------//
+exports.getEdit=async function(req,res,next){
+   try{
     const data=await Category.findOne({ _id:req.params.id },{category:1}).lean();
      let id=req.params.id;
     res.render('admin/edit-category',{data,id,layout:'admin-layout'});
+     
+     }catch(error){
+          next(error)
+      }
 }
 
-//edit category//
+//---------------------------poat-edit-category--------------------------//
 
-exports.getEdited=async function(req,res){
-    console.log('ivide ethiii');
+exports.getEdited=async function(req,res,next){
+    try{ 
+
+   
      await Category.findOneAndUpdate({_id:req.params.id},{
         $set:{
             category:req.body.category
@@ -48,20 +61,32 @@ exports.getEdited=async function(req,res){
      });
      console.log(req.body);
     res.redirect('/admin/category');
+
+    }catch(error){
+          next(error)
+}
    
 }
 
-//Delete category//
+//---------------------Delete-category-------------------------//
 
-exports.getDeleteCategory=async function(req,res){
+exports.getDeleteCategory=async function(req,res,next){
+    try{
+
     await Category.findByIdAndDelete(req.params.id);
-    res.redirect('/admin/category')
+    res.redirect('/admin/category');
+
+    }catch(error){
+          next(error)
+}
 }
 
 
-//add category//
+//----------------------add-category------------------------//
 
 exports.getAddCategories=async function(req,res,next){
+try{ 
+
   const category_data=await Category.find();
   if(category_data.length>0){
     console.log(req.body.category)
@@ -85,6 +110,9 @@ exports.getAddCategories=async function(req,res,next){
     }
 
   }
+}catch(error){
+    next(error)
+}
    
 }
 

@@ -4,17 +4,28 @@ let wishList = require('../model/wishlistModel');
 const Category = require("../model/categoryModel");
 
 module.exports={
-    getWishList : async function(req,res){
+
+    //------------------------get-wishlist-----------------------//
+
+    getWishList : async function(req,res,next){
+        try{
+
         const userLoggedIn=req.session.userLoggedIn;
           const userId=req.session.userId;
           let categoryDetails = await Category.find().lean();
           const wishlistData= await wishList.findOne( { userId : userId } ).populate( "products.productId" ).lean();
           
           res.render('user/wish-list',{wishlistData,layout:'user-layout',userLoggedIn,categoryDetails});
+
+        }catch(error){
+            next(error)
+        }
     },
 
-    postWishList: async function(req,res){
-        
+//--------------------------add-wishlist-----------------------------//
+
+    postWishList: async function(req,res,next){
+        try{
       
         const productId=req.body.product;
         const userId=req.session.userId;
@@ -38,15 +49,24 @@ module.exports={
         const price = (wishlistData.products[0].productId.price - wishlistData.products[0].productId.discount);
 
         await wishList.updateOne({ userId : userId , "products.productId" : productId }, {"products.$.price" : price });
+    }catch(error){
+        next(error)
+    }
 
     },
-
-    deleteWishlist: async function(req,res){
+ 
+    //-------------------delete-wishlist-------------------//
+    deleteWishlist: async function(req,res,next){
+        try{
 
        const userId = req.session.userId;
        const productId = req.body.productId;
         const deleteWishlist = await wishList.updateOne({ userId : userId },{ $pull : { products : { productId : req.body.productId} } });
         res.json({});
+
+    }catch(error){
+        next(error)
+    }
 
     }
 

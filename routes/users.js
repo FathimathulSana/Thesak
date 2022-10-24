@@ -9,6 +9,7 @@ const adminController=require('../controller/admin-controller');
 const cartController = require("../controller/cart-controller");
 const productController=require('../controller/product-controller');
 const wishlistController=require('../controller/wishlist-controller');
+const profileController=require('../controller/profile-controller');
 
 
 const bcrypt = require("bcrypt");
@@ -23,10 +24,9 @@ const bcrypt = require("bcrypt");
  router.post('/signup',userController.SignupAction);
  router.get('/login',userController.getLogin);
  router.get('/userLogout',userController.getLogout)
-//  router.get('/userLogout',userController.userLogout)
-//   router.get('/signup',userController.getUserLogin);
- router.get('/otp',sessionCheck.userSession,userController.getOtp);
-router.post('/otp',sessionCheck.userSession,userController.postOtp);
+
+ //-------------otp-------------//
+router.post('/otp/:id',userController.postOtp);
 
 //--------------------product view--------------//
 
@@ -38,12 +38,24 @@ router.get('/quickView/:id/',userController.getProductView);
  router.get('/viewCart',sessionCheck.userSession,cartController.getViewCart)
 
  router.post('/deleteCart',sessionCheck.userSession,cartController.deleteCart)
- router.post('/incrementValue',sessionCheck.userSession,cartController.incrementValue);
+ router.post('/changeQuantity',sessionCheck.userSession,cartController.changeQuantity);
 
  //-------------------wish-list----------------------//
 
  router.get('/wishList',sessionCheck.userSession,wishlistController.getWishList);
  router.post('/addToWishlist',sessionCheck.userSession,wishlistController.postWishList);
- router.post('/deleteWishlist',sessionCheck.userSession,wishlistController.deleteWishlist)
+ router.post('/deleteWishlist',sessionCheck.userSession,wishlistController.deleteWishlist);
+
+
+ //-------------------profile---------------------------//
+
+ router.get('/profile',sessionCheck.userSession,profileController.getProfile);
+ router.get('/addAddress',sessionCheck.userSession,profileController.getAddress);
+ router.post('/submitAddress',sessionCheck.userSession,profileController.postAddress);
+ router.post('/deleteAddress',sessionCheck.userSession,profileController.deleteAddress);
+ router.post('/editAddress/:id',sessionCheck.userSession,profileController.editAddress);
+ router.patch('/changeUsername',sessionCheck.userSession,profileController.changeUsername);
+ router.patch('/changePassword',sessionCheck.userSession,profileController.changePassword);
+
 
 module.exports = router;

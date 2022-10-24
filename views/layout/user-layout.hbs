@@ -44,7 +44,7 @@
    
 
 {{{body}}}
-
+<br><br><br><br>
 {{>user-footer}}
 
 </body>
@@ -214,43 +214,46 @@
 	
 
   {{!-- ===========remove-cart============= --}}
-  	{{!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> --}}
+  	<script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+	
+
+
 <script>
 
- function changeQuantity(proId,index) {
- 
-  count= parseInt(document.getElementById(proId).value)
-  
-   $.ajax({
-    url: '/incrementValue',
-    data: {
-      
-      product: proId,           
-      quantity: count,
-      index:index
+  function changeQuantity(cartId, prodId, count, index){
+	let quantity = parseInt(document.getElementById(prodId).innerHTML);
+    
+	$.ajax({
+		url : '/changeQuantity',
+		data : {
+			cartId : cartId,
+			prodId : prodId,
+			count : count,
+			quantity : quantity,
+			index : index
+		},
+		method : 'post',
+		success : (responce) => {
+			console.log(response);
+			if(responce.removeProduct){
+				console.log(responce,'changeproductquantity ajax cart.hbs 1');
+				Swal.fire('yeeyy!','Product removed successfully','success');
 
-    },
-     method: 'post',
-    success: (response) => {
-        console.log(response)
-         
-        document.getElementById(proId).value = response.quantity;
-       
-      //  {{!-- console.log('hi')
-        //console.log(log);
-        //console.log(response) --}}
-        $('#'+proId+'price').text(response.price);
+				setTimeout(() => {
+					location.reload()
+				},2000);
 
-        $('#totalAmount').text(response.totalAmount);
-      
-        
-    },
-    error: (error) => {
-        alert('hierror')
-        console.log(error)
-    },
-  })
-}
+				document.getElementById('totalAmount').innerHTML = '₹.' + responce.totalAmount
+			}else{
+				console.log(responce,'changeproductquantity ajax cart.hbs 1')
+				console.log('price' +prodId);
+				document.getElementById(prodId).innerHTML = quantity + count
+				document.getElementById('price' +prodId).innerHTML = '₹.' +responce.price
+				document.getElementById('totalAmount').innerHTML = '₹.' + responce.totalAmount
+			}
+		}
+	})
+  }
 
  
 		function deleteCart(proId, index) {
@@ -377,7 +380,111 @@ function deleteProduct(prodId){
 
 </script>
 
+{{!-- ---------------deleteAddress------------------------ --}}
 
+<script>
+ 
+   function deleteAddress(addressId){
+	 event.preventDefault();
+	
+     Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+          $.ajax({
+			url:'/deleteAddress',
+            data:{
+				addressId : addressId
+			},
+			method : 'post',
+
+			success : (responce) => {
+
+				if(responce){
+					location.reload();
+					alert('deleted successfully');
+				}
+			}
+		  })
+    
+	  }
+	})
+   }
+
+</script>
+{{!-- ------------------------change-username--------------------------- --}}
+
+<script>
+  function changeUsername(userId){
+	 name = document.getElementById("name").value;
+
+	$.ajax({
+		url : '/changeUsername',
+		data : {
+			userId : userId ,
+			name : name
+		},
+
+		method : 'patch',
+
+		success : (responce) => {
+			if(responce){
+				location.reload();
+			}
+		},
+		error : (error) => {
+			alert(error);
+		}
+	},)
+  };
+
+</script>
+
+{{!-- -------------------change-password--------------------- --}}
+
+<script>
+   function changePassword(userId){
+	oldpass = document.getElementById("oldpass").value;
+	newpass = document.getElementById('newpass').value;
+	confirmpass = document.getElementById('confirmpass').value;
+
+	$.ajax({
+		url : '/changePassword',
+		data : {
+			userId : userId,
+			oldpass : oldpass,
+			newpass : newpass,
+			confirmpass : confirmpass
+		},
+
+		method : 'patch',
+
+		success : (responce) => {
+			if(responce){
+              // alert('password changed successfully');
+			   location.reload();
+			}
+		},
+		error : (error) => {
+           alert('password incorrect, make sure you entered correct password');
+			//alert(error)
+		}
+	})
+   }
+</script>
+
+
+
+{{!-- ----------------------------------------------------------------------------------- --}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 
 {{!-- ---------------sweetAlert---------------------------- --}}
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

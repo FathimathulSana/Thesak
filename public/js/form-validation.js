@@ -5,7 +5,7 @@ $.validator.addMethod('Name',function(value, element){
 $.validator.addMethod('Phone', function(number, element) {
     number = number.replace(/\s+/g, "");
     return this.optional(element) || number.length > 9 && 
-    number.match(/^(\+?1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
+    number.match(/^([0-9]{10})|(\([0-9]{3}\)\s+[0-9]{3}\-[0-9]{4})$/);
 }, "Please specify a valid phone number");
 
 $.validator.addMethod('Email',function(email,element){
@@ -66,3 +66,32 @@ $("#signupform").validate({
     form.submit();
     }
        });
+
+
+    //    -------------------change-password-----------------------//
+    $("#changePassword").validate({
+      
+        rules: {
+            newpass: {
+                required: true,
+                minlength: 8
+            },
+            confirmpass:{
+                required:true,
+                equalTo:"#newpass"
+            }
+        },
+        messages:{
+            newpass:{
+                required:"Please provide a password",
+                minlength:"password must be atleast 8 characters"
+            },
+            confirmpass:{
+                 required:"Please provide a password", 
+                 equalTo:"Password did not match"
+            }
+         },
+         submitHandler: function(form) {
+            form.submit();
+            }
+               });

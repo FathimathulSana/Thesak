@@ -27,7 +27,7 @@
 									<th class="column-3">Price</th>
                                     <th class="column-3">Discount</th>
 									<th class="column-4">Quantity</th>
-                                    <th class="column-2"></th>
+                               
 									<th class="column-5">Total</th>
 									<th class="column-6">Delete</th>
 								</tr>
@@ -40,9 +40,16 @@
 										</div>
 									</td>
 									
-									<td class="column-3">₹ {{this.productId.price}}</td>
-                                    <td class="column-3">₹ {{this.productId.discount}}</td>
-									<td colspan="2" class="column-4">
+									<td class="column-3">$ {{this.productId.price}}</td>
+                                    <td class="column-3">$ {{this.productId.discount}}</td>
+								
+                          <td>
+						<button class="cart-item-count btn-danger px-2 mr-3"
+							onclick="changeQuantity('{{../cartDetails._id}}','{{this.productId._id}}',-1,'{{@index}}')">-</button>
+						<span id="{{this.productId._id}}">{{this.quantity}}</span>
+						<button class="cart-item-count btn-danger px-2 ml-3"
+							onclick="changeQuantity('{{../cartDetails._id}}','{{this.productId._id}}',1,'{{@index}}')">+</button>
+					 </td> 
 										{{!-- <div class="wrap-num-product mr-3">
 											{{!-- <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-minus"></i>
@@ -54,7 +61,7 @@
 												<i class="fs-16 zmdi zmdi-plus" ></i> 
 											</div>
 										</div>  --}}
-                                        <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                                        {{!-- <div class="wrap-num-product flex-w m-r-20 m-tb-10">
 										<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
 											<i class="fs-16 zmdi zmdi-minus"></i>
 										</div>
@@ -65,7 +72,7 @@
 											<i class="fs-16 zmdi zmdi-plus"></i>
 										</div>
 									</div>
-									</td>
+									</td> --}}
 									{{!-- <td class="product_quantity"><label></label> <input min="1"
                                                     max="100" value="{{this.quantity}}" type="number" id="{{this.productId._id}}" onclick="changeQuantity('{{this.productId._id}}','{{@index}}');" ></td>
 									 --}}
@@ -135,7 +142,7 @@
 
 							<div class="size-209 p-t-1">
 								<span class="mtext-110 cl2" id="totalAmount">
-									₹{{totalAmount}}
+									${{totalAmount}}
 								</span>
 							</div>
 						</div>
