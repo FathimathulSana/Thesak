@@ -1,0 +1,65 @@
+  <!-- Form Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="rounded h-100 w-100 p-4 ">
+                            <h3 class="text-dark text-center">Edit Coupon</h3>
+                            <form method="post" action="/admin/editCoupon/{{couponData._id}}">
+                                
+                                <div class="mb-3">
+                                    <label  class="form-label">Coupon Name</label>
+                                    <input value="{{couponData.couponName}}" name="couponName" type="text" class="form-control bg-white" id="exampleInputEmail1"
+                 
+                                    {{!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
+                                    </div> --}}
+                                </div>
+                                 <div class="mb-3">
+                                    <label  class="form-label">Coupon Code</label>
+                                    <input value="{{couponData.couponCode}}" name="couponCode" type="text" class="form-control bg-white" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" required>
+                                    {{!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
+                                    </div> --}}
+                                </div>
+                                <div class="mb-3">
+                                    <label  class="form-label">Discount Amount</label>
+                                    <input value="{{couponData.discountAmount}}" name="discountAmount" type="number" min="0" class="form-control bg-white" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" required>
+                                    {{!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
+                                    </div> --}}
+                                </div>
+                                 <div class="mb-3">
+                                    <label  class="form-label">Minimum Amount Required</label>
+                                    <input value="{{couponData.minAmount}}" name="minAmount" type="text" class="form-control bg-white" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" required>
+                                    {{!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
+                                    </div> --}}
+                                </div>
+                           
+                                   <div class="mb-3">
+                                <label for="formFileMultiple" class="form-label">Coupon Expiry Date</label>
+                                <input value="{{couponData.expiryDate}}" name="expiryDate" class="form-control " type="date" style="background-color:white ; " required>
+                            </div>
+                            {{!-- ----------------------------------------------------------------------------------------------------------------------------------------------------- --}}
+                                {{!-- <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div> --}}
+                                                          
+                               {{#if msg}}
+                                <p class="text-danger">{{msg}}</p>
+                               {{/if}}
+                                <button type="submit" class="btn text-white" style="background-color:rgb(6, 29, 6) ;">Edit</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+        <!-- Content End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>

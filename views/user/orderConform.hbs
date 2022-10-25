@@ -1,0 +1,69 @@
+
+<section class="h-100 h-custom" style="background-color: #FFFCF9; min-height: 100vh;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-8 col-xl-6">
+        
+        <div class="card border-top border-bottom border-3" style="border-color: black !important;">
+             
+          <div class="card-body p-5">
+          <div class="col-md-10 col-lg-6 col-xl-7 w-100 order-1 order-lg-2 d-flex align-items-center justify-content-center">
+                <img src="/admin/img/TheSak.png" class="img-fluid border mb-2" alt="Sample image" width="50%" height="50%">
+              </div>
+            <p class="lead fw-bold text-center" style="color: black;">Thank you for your order</p>
+
+            <div class="row">
+              <div class="col mb-3 mt-3">
+                <p class="small text-muted mb-1">Date</p>
+                <p>{{orderDataPopulated.createdAt}}</p>
+              </div>
+              <div class="col mb-3 mt-3">
+                <p class="small text-muted mb-1">Order No.</p>
+                <p>{{orderDataPopulated._id}}</p>
+              </div>
+            </div>
+            
+            {{!-- <div class="mx-n5 px-5 py-4" style="background-color: #f2f2f2;">
+              <div class="row">
+                <div class="col-md-8 col-lg-9">
+                  <p>{{orderDataPopulated.products}}</p>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                  <p>£299.99</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8 col-lg-9">
+                  <p class="mb-0">Shipping</p>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                  <p class="mb-0">£33.00</p>
+                </div>
+              </div>
+            </div> --}}
+            
+            {{!-- <div class="row my-4">
+              <div class="col-md-4 offset-md-8 col-lg-3 offset-lg-9">
+                <p class="lead fw-bold mb-0" style="color: #f37a27;">Total Amount:₹{{totalAmount}}</p>
+              </div>
+            </div> --}}
+            <p class="lead fw-bold mb-4 pb-2" >Total Amount:<span style="color: black">${{totalAmount}}</span></p>
+
+            <p class="lead fw-bold mb-4 pb-2" >Payment Method:<spa style="color: black">{{orderDataPopulated.paymentMethod}}</span> </p>
+
+            
+
+            <a href="/"><button class="btn btn-outline-secondary" type="button">Go to home</button></a>
+            <a href="/myOrders"><button class="btn text-white" style="background-color:rgb(6, 29, 6) ;" type="button">Go to My Orders</button></a>
+
+              
+
+            <p class="mt-4 pt-2 mb-0">Want any help? <a href="#!" style="color: black;">Please contact
+                us</a></p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

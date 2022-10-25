@@ -1,14 +1,17 @@
 const express = require('express');
 const app = require('../app');
 const router = express.Router();
+const mongoose=require('mongoose');
+const multer = require('multer');
+const path = require('path');
+const sessionCheck = require('../middleware/session')
+const upload = require('../middleware/imageMulter')
+
 const adminController=require('../controller/admin-controller');
 const productController=require('../controller/product-controller');
 const categoryController=require('../controller/category-controller');
-const mongoose=require('mongoose');
- const multer = require('multer');
- const path = require('path');
- const sessionCheck = require('../middleware/session')
- const upload = require('../middleware/imageMulter')
+const couponController=require('../controller/coupon-controller');
+
 
 /* Login page*/
 router.get('/',adminController.getAdmin);
@@ -41,5 +44,28 @@ router.get('/edit-category/:id',sessionCheck.adminSession,categoryController.get
  router.post('/edit-products/:id',sessionCheck.adminSession,upload.array('images',4),productController.postEditProduct);
  router.get('/delete-products/:id',sessionCheck.adminSession,productController.getDeleteProduct)
 
+ /*coupon management */
+ router.get('/coupon',sessionCheck.adminSession,couponController.getCoupon);
+ router.get('/addCoupon',sessionCheck.adminSession,couponController.getAddCoupon);
+ router.post('/addCoupon',sessionCheck.adminSession,couponController.postAddCoupon);
+ router.get('/editCoupon/:id',sessionCheck.adminSession,couponController.getEditCoupon);
+ router.post('/editCoupon/:id',sessionCheck.adminSession,couponController.postEditCoupon);
+ router.get('/deleteCoupon/:id',sessionCheck.adminSession,couponController.deleteCoupon);
+
+
+
+
+// -----------error-page-render------------//
+
+router.use((req,res,next) => {
+    //next(createError(404))
+    res.render("admin/admin-error")
+})
+
+router.use((err,req,res,next) => {
+    console.log("admin error route handler");
+    res.status(err.status || 500);
+    res.render('admin/admin-error')
+})
 
 module.exports = router;

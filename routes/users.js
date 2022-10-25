@@ -5,11 +5,14 @@ const app = require('../app');
 const sessionCheck = require('../middleware/session')
 
 const userController = require("../controller/user-controller");
-const adminController=require('../controller/admin-controller');
+const adminController = require('../controller/admin-controller');
 const cartController = require("../controller/cart-controller");
-const productController=require('../controller/product-controller');
-const wishlistController=require('../controller/wishlist-controller');
-const profileController=require('../controller/profile-controller');
+const productController = require('../controller/product-controller');
+const wishlistController = require('../controller/wishlist-controller');
+const profileController = require('../controller/profile-controller');
+const checkoutController = require('../controller/checkout-controller');
+const couponController=require('../controller/coupon-controller');
+const orderController=require('../controller/order-controller');
 
 
 const bcrypt = require("bcrypt");
@@ -56,6 +59,17 @@ router.get('/quickView/:id/',userController.getProductView);
  router.post('/editAddress/:id',sessionCheck.userSession,profileController.editAddress);
  router.patch('/changeUsername',sessionCheck.userSession,profileController.changeUsername);
  router.patch('/changePassword',sessionCheck.userSession,profileController.changePassword);
+
+ //--------------------checkout--------------------------//
+
+ router.get('/checkout',sessionCheck.userSession,checkoutController.checkout);
+ router.post('/billingAddress',sessionCheck.userSession,checkoutController.billingAddress);
+ router.post('/couponValidation',sessionCheck.userSession,couponController.validateCoupon);
+
+ //-----------------------order-------------------------//
+
+ router.post('/confirmOrderButton',sessionCheck.userSession,orderController.confirmOrderButton);
+ router.get('/confirmationPage', sessionCheck.userSession, orderController.confirmationPage) 
 
 
 module.exports = router;

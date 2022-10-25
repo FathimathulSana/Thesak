@@ -480,6 +480,209 @@ function deleteProduct(prodId){
    }
 </script>
 
+{{!-- -----------checkout-BillingAddress---------------- --}}
+
+<script>
+	function billingAddress(addId){
+		$.ajax({
+			url : '/billingAddress',
+			data : {
+				address : addId
+			},
+			method : 'post',
+			success : (responce) =>{
+				console.log('this is the responce',responce);
+
+				document.getElementById("firstName").value = responce.address.firstName;
+                document.getElementById("phoneNumber").value = responce.address.phoneNumber;
+                document.getElementById("email").value = responce.address.email;
+                document.getElementById("address").value = responce.address.address;
+                document.getElementById("lastName").value = responce.address.lastName;
+                document.getElementById("pincode").value = responce.address.pincode;
+                document.getElementById("city").value = responce.address.city;
+                document.getElementById("landmark").value = responce.address.landmark;
+                document.getElementById("state").value = responce.address.state;
+			},
+			error: (error) => {
+        alert('hierror')
+        console.log(error)
+      }
+
+		})
+	}
+</script>
+{{!-- --------------couponValidation------------------ --}}
+
+<script>
+		function couponValidator(total) {
+    let totalAmount = document.getElementById('totalAmount').textContent
+    couponId = document.getElementById('couponId').value
+    console.log('Coupon Id ;', couponId, 'total amount:', totalAmount);
+    $.ajax({
+      url: '/couponValidation',
+      data: {
+        couponId: couponId,
+        total: total
+
+
+      },
+
+      method: 'post',
+      success: (response) => {
+        console.log(response);
+        
+        if (response.message == 'used already') {
+          document.getElementById("totalAmount").textContent = total;
+          document.getElementById("discountAmount").textContent = "NIL";
+          document.getElementById("couponCode").textContent = "NIL";
+
+          document.getElementById('couponValue').innerHTML = "<span style='color: red;'>Coupon Already Used!</span>";
+        }
+        else if (response.message == 'coupon expired') {
+          document.getElementById("totalAmount").textContent = total;
+          document.getElementById("discountAmount").textContent = "NIL";
+          document.getElementById("couponCode").textContent = "NIL";
+
+          document.getElementById('couponValue').innerHTML = "<span style='color: red;'>Coupon Expired!</span>";
+        }
+        else if (response.message == 'less than minimum') {
+          document.getElementById("totalAmount").textContent = total;
+          document.getElementById("discountAmount").textContent = "NIL";
+          document.getElementById("couponCode").textContent = "NIL";
+
+          document.getElementById('couponValue').innerHTML = "<span style='color: red;'>Add Items to Cart!</span>";
+        }
+        else if (response.message == 'succesfull') {
+          document.getElementById("totalAmount").textContent = response.couponTotal;
+          document.getElementById("discountAmount").textContent = response.coupons.discountAmount;
+          document.getElementById("couponCode").textContent = response.coupons.couponCode;
+
+          document.getElementById('couponValue').innerHTML = "<span style='color: green;'>Coupon Applied!</span>";
+        }
+        else if (response.message == 'invalid coupon') {
+          document.getElementById("totalAmount").textContent = total;
+          document.getElementById("discountAmount").textContent = "NIL";
+          document.getElementById("couponCode").textContent = "NIL";
+
+          document.getElementById('couponValue').innerHTML = "<span style='color: red;'>Invalid Coupon!</span>";
+        }
+
+			}
+		});
+	}
+
+	 function copyFunction(couponId) {
+    event.preventDefault()
+    console.log("copied couponId:", couponId);
+    navigator.clipboard.writeText(couponId);
+  }
+</script>
+
+{{!-- ----------order-confirmation----------------}}
+
+<script type="text/javascript">
+    $(function () {
+        $("#confirmOrder").click(function () {
+            //Set the Valid Flag to True if one RadioButton from the Group of RadioButtons is checked.
+            var isValid = $("input[name=paymentMethod]").is(":checked");
+            var isValid = $("input[name=address]").is(":checked");
+            //Display error message if no RadioButton is checked.
+            $("#paymentSpan")[0].style.display = isValid ? "none" : "block";
+            $("#addressSpan")[0].style.display = isValid ? "none" : "block";
+        });
+    });
+</script>
+
+{{!-- ---------------------------------------- --}}
+<script>
+	 function confirmOrderButton() {
+
+    firstName = document.getElementById("firstName").value
+	lastName = document.getElementById("lastName").value
+    email = document.getElementById("email").value
+    phoneNumber = document.getElementById("phoneNumber").value
+    address = document.getElementById("address").value
+    pincode = document.getElementById("pincode").value
+    city = document.getElementById("city").value
+    landmark = document.getElementById("landmark").value
+    state = document.getElementById("state").value
+    paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+
+    $.ajax({
+      url: '/confirmOrderButton',
+      data: {
+        firstName: firstName,
+	    lastName: lastName,
+        phoneNumber: phoneNumber,
+        email: email,
+        address: address,
+        pincode: pincode,
+        city: city,
+        landmark: landmark,
+        state: state,
+        paymentMethod: paymentMethod
+
+      },
+      method: 'post',
+      success: (responce) => {
+        console.log("response from ajax::", responce)
+        if (responce.status == "COD") {
+          location.replace('/confirmationPage');
+        }
+
+        else {
+          var options = {
+            "key": "", // Enter the Key ID generated from the Dashboard
+            "amount": res.razorData.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Acme Corp",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": res.razorData.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+              verifyPayment(response, res.razorData);
+            },
+            "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+            "prefill": {
+              "name": "Gaurav Kumar",
+              "email": "gaurav.kumar@example.com",
+              "contact": "9999999999"
+            },
+            "notes": {
+              "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+              "color": "#3399cc"
+            }
+          };
+          var rzp1 = new Razorpay(options);
+          document.getElementById('confirmOrder').onclick = function (e) {
+            rzp1.open();
+            e.preventDefault();
+            rzp1.on('payment.failed', function (response) {
+              alert(response.error.code);
+              //alert(response.error.description);
+              //alert(response.error.source);
+              //alert(response.error.step);
+              //alert(response.error.reason);
+              //alert(response.error.metadata.order_id);
+              //alert(response.error.metadata.payment_id);
+
+            });
+
+          }
+        }
+        //location.reload()
+      },
+
+      error: (error) => {
+        alert('hierror')
+        console.log(error)
+      },
+    })
+  }
+</script>
 
 
 {{!-- ----------------------------------------------------------------------------------- --}}
