@@ -14,8 +14,15 @@ module.exports={
           const userId=req.session.userId;
           let categoryDetails = await Category.find().lean();
           const wishlistData= await wishList.findOne( { userId : userId } ).populate( "products.productId" ).lean();
-          
-          res.render('user/wish-list',{wishlistData,layout:'user-layout',userLoggedIn,categoryDetails});
+          if(wishlistData){
+            if(wishlistData.products[0]){
+              return res.render('user/wish-list',{wishlistData,layout:'user-layout',userLoggedIn,categoryDetails});
+            }
+            res.render('user/empty-wishlist',{layout : 'user-layout',categoryDetails,userLoggedIn});
+          }else{
+            res.render('user/empty-wishlist',{layout : 'user-layout',categoryDetails,userLoggedIn});
+          }
+         
 
         }catch(error){
             next(error)

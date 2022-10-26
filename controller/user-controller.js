@@ -158,6 +158,7 @@ exports.getProductView=async function(req,res,next) {
    let products = await Product.find().lean();
 
   let productDetails=await Product.find({_id:id}).populate('category').lean();
+  console.log(productDetails);
 
   let categoryDetails = await Category.find().lean();
 
