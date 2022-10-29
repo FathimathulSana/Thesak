@@ -633,15 +633,15 @@ function deleteProduct(prodId){
 
         else {
           var options = {
-            "key": "", // Enter the Key ID generated from the Dashboard
-            "amount": res.razorData.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "key": "rzp_test_mA1fhNYZrMVHKU", // Enter the Key ID generated from the Dashboard
+            "amount": responce.razorData.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
             "currency": "INR",
             "name": "Acme Corp",
             "description": "Test Transaction",
             "image": "https://example.com/your_logo",
-            "order_id": res.razorData.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "order_id": responce.razorData.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
             "handler": function (response) {
-              verifyPayment(response, res.razorData);
+              verifyPayment(response, responce.razorData);
             },
             "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
             "prefill": {
@@ -682,8 +682,50 @@ function deleteProduct(prodId){
       },
     })
   }
+
+   function verifyPayment(razorResponse, razorData) {
+    console.log('this is working');
+    $.ajax({
+      url: '/verifyRazorpay',
+      data: {
+        razorResponse,
+        razorData
+      },
+      method: 'post',
+      success: (res) => {
+        if (res.status) {
+          location.replace('/confirmationPage');
+        }
+      }
+    })
+  }
+</script>
+{{!-- ------------------------cancel-order---------------------------- --}}
+<script>
+  function cancelOrder(orderId){
+
+     $.ajax({
+      url : '/cancelOrder',
+      data : {
+        orderId : orderId
+      },
+      method : 'post',
+
+      success : (responce) => {
+        console.log(responce,'responce');
+        location.reload();
+      },
+
+      error : (error) => {
+        alert('error');
+        console.log(error);
+      }
+     })
+
+  }
 </script>
 
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 {{!-- ----------------------------------------------------------------------------------- --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"

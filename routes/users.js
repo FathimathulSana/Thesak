@@ -65,11 +65,14 @@ router.get('/quickView/:id/',userController.getProductView);
  router.get('/checkout',sessionCheck.userSession,checkoutController.checkout);
  router.post('/billingAddress',sessionCheck.userSession,checkoutController.billingAddress);
  router.post('/couponValidation',sessionCheck.userSession,couponController.validateCoupon);
+ router.post('/verifyRazorpay', sessionCheck.userSession, orderController.verifyPayment);
 
  //-----------------------order-------------------------//
 
  router.post('/confirmOrderButton',sessionCheck.userSession,orderController.confirmOrderButton);
- router.get('/confirmationPage', sessionCheck.userSession, orderController.confirmationPage) 
+ router.get('/confirmationPage', sessionCheck.userSession, orderController.confirmationPage);
+ router.get('/myOrders',sessionCheck.userSession,orderController.myOrders); 
+ router.post('/cancelOrder',sessionCheck.userSession,orderController.cancelOrder);
 
 
 module.exports = router;

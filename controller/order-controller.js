@@ -2,7 +2,7 @@ const User = require('../model/userModel')
 const Product = require("../model/productModel");
 let Cart = require("../model/cartModel");
 const Order = require('../model/orderModel');
-//const razorpayController = require('../controller/razorpayController')
+const razorpayController = require('../controller/razorpay-controller')
 const cartFunction = require('../controller/cart-function');
 const { totalAmount } = require('../controller/cart-function');
 const Coupon = require('../model/couponModel');
@@ -38,11 +38,13 @@ module.exports = {
                 req.session.orderData = null;
 
                 req.session.confirmationData = { orderDataPopulated, totalAmount };
-                res.json({ status: "COD", totalAmounts, orderData })
+                res.json({ status: "COD", totalAmounts, orderData });
+
             } else if (orderData.paymentMethod == 'Online Payment') {
                 let orderData = req.session.orderData
+                console.log('online payment',orderData);
                 req.session.orderData = null;
-                razorData = await razorpayController.generateRazorpy(orderData._id, totalAmounts)
+                razorData = await razorpayController.generateRazorpay(orderData._id, totalAmounts)
 
                 await Order.findOneAndUpdate({ _id: orderData._id }, { orderId: razorData.id });
                 razorId = process.env.RAZOR_PAY_ID;
@@ -67,5 +69,48 @@ module.exports = {
             next(error)
         }
     },
+    verifyPayment : async function(req,res,next){
+        try {
+            success = await razorpayController.validate(req.body);
+            if(success){
+                await Order.findOneAndUpdate({ orderId : req.body['razorData[id]'] }, { paymentStatus : 'success' });
+                return res.json({ status : "true" });
+            }else{
+                await Order.findOneAndUpdate({ orderId : req.body['razorData[id]'] }, {paymentStatus : 'failed' });
+                return res.json({ status : "failed" });
+            }
+        } catch (error) {
+            next(error)
+        }
+    },
+
+    myOrders : async function(req,res,next){
+        try {
+            const userLoggedIn = req.session.userLoggedIn;
+            userId = req.session.userId;
+            let orderData = await Order.find({ userId : userId }).sort({ createdAt : -1 }).populate("products.productId").lean();
+            for( let i=0 ; i < orderData ; i++ ){
+                if(orderData[i].status == 'cancelled'){
+                    orderData[i].cancelled = true;
+                }else if(orderData[i].status == 'delivered'){
+                    orderData[i].delivered = true ;
+                }
+            }
+            res.render('user/orders',{layout : 'user-layout',userLoggedIn,orderData})
+        } catch (error) {
+            next(error)
+        }
+    } ,
+
+    cancelOrder : async function(req,res,next){
+        try{
+           const userId = req.session.userId;
+           const orderId = req.body.orderId;
+           await Order.findOneAndUpdate({ _id : orderId }, { $set : { status : 'cancelled' } });
+           res.json({ status : "success" });
+        }catch(error){
+            next(error)
+        }
+    }
     
 }

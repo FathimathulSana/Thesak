@@ -58,13 +58,22 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
- const oneDay = 1000 * 60 * 60 * 24;
- app.use(session({
-   secret: "thisismysecrctekey",
-   saveUninitialized: true,
-   cookie: { maxAge: oneDay },
-   resave: false
- }));
+app.use(
+  session({
+   
+    secret: "somerandonstuffs",
+    resave: false,
+    saveUninitialized: false,
+   
+  })
+);
+
+
+
+app.use(function(req, res, next) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  next();
+});
  
 
 app.use('/', usersRouter);
