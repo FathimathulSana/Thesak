@@ -11,6 +11,7 @@ const adminController=require('../controller/admin-controller');
 const productController=require('../controller/product-controller');
 const categoryController=require('../controller/category-controller');
 const couponController=require('../controller/coupon-controller');
+const adminOrderController=require('../controller/adminOrder-controller');
 
 
 /* Login page*/
@@ -52,6 +53,12 @@ router.get('/edit-category/:id',sessionCheck.adminSession,categoryController.get
  router.post('/editCoupon/:id',sessionCheck.adminSession,couponController.postEditCoupon);
  router.get('/deleteCoupon/:id',sessionCheck.adminSession,couponController.deleteCoupon);
 
+
+ /*orders management */
+
+ router.get('/viewOrders',sessionCheck.adminSession,adminOrderController.viewOrders);
+ router.get('/editStatus/:id',sessionCheck.adminSession,adminOrderController.getEditStatus);
+ router.post('/postEditStatus/:id',sessionCheck.adminSession,adminOrderController.postEditStatus);
 
 
 
