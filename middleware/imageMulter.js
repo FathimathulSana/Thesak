@@ -5,7 +5,7 @@ const path = require('path');
 
 //set storage engine-multer//
 
- 
+// --------------product images----------------// 
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -18,3 +18,4 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 module.exports = upload;
+

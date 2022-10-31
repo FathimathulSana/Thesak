@@ -5,13 +5,15 @@ const mongoose=require('mongoose');
 const multer = require('multer');
 const path = require('path');
 const sessionCheck = require('../middleware/session')
-const upload = require('../middleware/imageMulter')
+const upload = require('../middleware/imageMulter');
+const uploads = require('../middleware/bannerMulter');
 
 const adminController=require('../controller/admin-controller');
 const productController=require('../controller/product-controller');
 const categoryController=require('../controller/category-controller');
 const couponController=require('../controller/coupon-controller');
 const adminOrderController=require('../controller/adminOrder-controller');
+const bannerController=require('../controller/banner-controller');
 
 
 /* Login page*/
@@ -60,7 +62,14 @@ router.get('/edit-category/:id',sessionCheck.adminSession,categoryController.get
  router.get('/editStatus/:id',sessionCheck.adminSession,adminOrderController.getEditStatus);
  router.post('/postEditStatus/:id',sessionCheck.adminSession,adminOrderController.postEditStatus);
 
+/*Banner management */
 
+router.get('/Banner',sessionCheck.adminSession,bannerController.getBanner); 
+router.get('/addBanner',sessionCheck.adminSession,bannerController.getAddBanner);
+router.post('/addBanner',uploads.single('image'),sessionCheck.adminSession,bannerController.postAddBanner);
+router.get('/EditBanner/:id',sessionCheck.adminSession,bannerController.getEditBanner);
+router.post('/editBanner/:id',uploads.single('image'),sessionCheck.adminSession,bannerController.postEditBanner);
+router.get('/deleteBanner/:id',sessionCheck.adminSession,bannerController.deleteBanner);
 
 // -----------error-page-render------------//
 
