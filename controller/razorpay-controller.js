@@ -1,5 +1,5 @@
 const Razorpay = require("razorpay");
-const crypto = require('crypto');
+const crypto = require("crypto");
 const { nextTick } = require("process");
 
 var instance = new Razorpay({
@@ -7,19 +7,16 @@ var instance = new Razorpay({
   key_secret: process.env.RAZOR_PAY_SECRET_KEY,
 });
 
-
 module.exports = {
-
   generateRazorpay: async (orderId, amount) => {
     let value = await instance.orders.create({
-
       amount: amount,
       currency: "INR",
-      receipt: orderId + '',
+      receipt: orderId + "",
       notes: {
         key1: "value3",
         key2: "value2",
-      }
+      },
     });
     return value;
   },
@@ -27,13 +24,12 @@ module.exports = {
     let hmac = crypto.createHmac("sha256", process.env.RAZOR_PAY_SECRET_KEY);
     await hmac.update(
       razorData["razorResponse[razorpay_order_id]"] +
-      "|" +
-      razorData["razorResponse[razorpay_payment_id]"]
+        "|" +
+        razorData["razorResponse[razorpay_payment_id]"]
     );
     hmac = await hmac.digest("hex");
     if (hmac == razorData["razorResponse[razorpay_signature]"])
       return (orderConfirmed = true);
     return (orderConfirmed = false);
-  }
-
+  },
 };

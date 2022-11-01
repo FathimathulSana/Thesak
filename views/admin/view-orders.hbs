@@ -1,39 +1,45 @@
-  <section class="mt-5 p-1">
-          <style>
-            table, th, td { border: 2px solid black; border-collapse: collapse; color: black;}
-          </style>
-         
-            <table id="example" class="row-border" style="width:100%">
-              <thead>
-                <tr>
-                  <th>No.</th>
-                  <th>User Email</th>
-                  <th>Phone</th>
-                  <th>Order id</th>
-                  <th>Payment</th>
-                  <th>Date</th>
-                  <th>Status</th>
-                  
-                  <th>Edit</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each orderData}}
-                <tr>
-                  <td>{{inc @index}}</td>
-                  <td>{{this.userId.email}}</td>
-                  <td>{{this.userId.phonenumber}}</td>
-                  <td>{{this._id}}</td>
-                  <td>{{this.paymentMethod}}</td>
-                  <td>{{formatString this.createdAt}}</td>
-                  <td>{{this.status}}</td>
-                  
-                  <td><a href="/admin/editStatus/{{this._id}}"><i class="bi bi-pencil-square"></i></a></td>
+<section class="mt-5 p-1">
+  <style>
+    table,
+    th,
+    td {
+      border: 2px solid black;
+      border-collapse: collapse;
+      color: black;
+    }
+  </style>
 
-                </tr>
-                {{/each}}
-              </tbody>
-              
-            </table>
-        
-        </section>
+  <table id="example" class="row-border" style="width:100%">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>User Email</th>
+        <th>Phone</th>
+        <th>Order id</th>
+        <th>Payment</th>
+        <th>Date</th>
+        <th>Status</th>
+
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each orderData}}
+      <tr>
+        <td>{{inc @index}}</td>
+        <td>{{this.userId.email}}</td>
+        <td>{{this.userId.phonenumber}}</td>
+        <td>{{this._id}}</td>
+        <td>{{this.paymentMethod}}</td>
+        <td>{{formatString this.createdAt}}</td>
+        <td>{{this.status}}</td>
+
+        <td><a href="/admin/editStatus/{{this._id}}"><i class="bi bi-pencil-square"></i></a></td>
+
+      </tr>
+      {{/each}}
+    </tbody>
+
+  </table>
+
+</section>

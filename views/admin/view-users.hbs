@@ -1,45 +1,46 @@
-
-
-            <!-- Blank Start -->
-            <div class="col-12">
-                <div class="bg-white rounded h-100 p-4">
-                    <div class="table-responsive text-center">
-                        <table class="table mt-5">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                   <th scope="col">ID</th>
-                                    <th scope="col">FirstName</th>
-                                     <th scope="col">LastName</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Phone Number</th>
-                                    <th scope="col">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{#each userDetails}}
-                                <tr>
-                                    <th scope="row">{{inc @ index}}</th>
-                                       <td>{{this._id}}</td>
-                                    <td>{{this.fname}}</td>
-                                    <td>{{this.lname}}</td>
-                                    <td>{{this.email}}</td>
-                                    <td>{{this.phonenumber}}</td>
-                                    <td>
-                                        {{#if active}}
-                                        <a href="/admin/blocked/{{this._id}}" ><button onclick="return confirm('Are you sure to block this user?')" type="button" class="btn m-2 text-white" style="background-color:rgb(6, 29, 6) ;">Block</button></a>
-                                        {{else}}
-                                        <a href="/admin/unblocked/{{this._id}}"><button onclick="return confirm('Are you sure to unblock this user?')" type="button" class="btn m-2 text-white" style="background-color:rgb(169, 19, 19) ">Unblock</button></a>
-                                       {{/if}} 
-                                    </td>
-                                </tr>
-                             {{/each}}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!-- Blank End -->
-
-
-           
+<!-- Blank Start -->
+<div class="col-12">
+    <div class="bg-white rounded h-100 p-4">
+        <div class="table-responsive text-center">
+            <table class="table mt-5">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">FirstName</th>
+                        <th scope="col">LastName</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone Number</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each userDetails}}
+                    <tr>
+                        <th scope="row">{{inc @ index}}</th>
+                        <td>{{this._id}}</td>
+                        <td>{{this.fname}}</td>
+                        <td>{{this.lname}}</td>
+                        <td>{{this.email}}</td>
+                        <td>{{this.phonenumber}}</td>
+                        <td>
+                            {{#if active}}
+                            <a href="/admin/blocked/{{this._id}}"><button
+                                    onclick="return confirm('Are you sure to block this user?')" type="button"
+                                    class="btn m-2 text-white"
+                                    style="background-color:rgb(6, 29, 6) ;">Block</button></a>
+                            {{else}}
+                            <a href="/admin/unblocked/{{this._id}}"><button
+                                    onclick="return confirm('Are you sure to unblock this user?')" type="button"
+                                    class="btn m-2 text-white"
+                                    style="background-color:rgb(169, 19, 19) ">Unblock</button></a>
+                            {{/if}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Blank End -->

@@ -1,73 +1,59 @@
 <body>
 
-    <div class="container mt-3 border p-4">
-        <h2 class="mb-4">Add New Address </h2>
+  <div class="container mt-3 border p-4">
+    <h2 class="mb-4">Add New Address </h2>
 
-        {{!-- <div id="accordion">
-            <div class="card">
-                <div class="card-header">
-                    <a class="btn" data-bs-toggle="collapse" href="#collapseOne">
-                        Add Address
-                    </a>
-                </div>
-                <div id="collapseOne" class="collapse show" data-bs-parent="#accordion"> --}}
-                    <div class="card-body">
-                        {{!-- address form --}}
-                        <form action="/submitAddress" method="post">
-                  <div class="form-row ml-3">
-                    <div class="form-group ">
-                      <label for="inputAddress2">First Name</label>
-                      <input type="text" name="firstName" class="form-control" id="inputAddress2" placeholder="Enter Your First name" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="inputAddress2">Last Name</label>
-                      <input type="text" name="lastName" class="form-control" id="inputAddress2" placeholder="Enter Your Last name" required>
-                    </div>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputEmail4">Email</label>
-                    <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="Email" required>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputEmail4">Phone number</label>
-                    <input type="number" name="phoneNumber" class="form-control" id="inputEmail4" placeholder="phone number" required>
-                  </div>
-                  <div class="form-group ml-3">
-                    <label for="inputAddress2">Address</label>
-                    <input type="text" name="address" class="form-control" id="inputAddress2"
-                      placeholder="Apartment, studio, or floor" required>
-                  </div>
-                  <div class="form-row ml-2">
-                    <div class="form-group col-md-6">
-                      <label for="inputCity">City</label>
-                      <input type="text" name="city" class="form-control" id="inputCity" required>
-                    </div>
-                    <div class="form-group col-md-4">
-                      <label for="inputState">State</label>
-                      {{!-- <select id="inputState" class="form-control">
-                        <option selected>Choose...</option>
-                        <option value="Kerala">kerala</option>
-                      </select> --}}
-                      <input type="text" name="state" class="form-control" id="inputState" required>
-                    </div>
-                    <div class="form-group col-md-2">
-                      <label for="inputZip">Pin</label>
-                      <input type="text" name="pincode" class="form-control" id="inputZip" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="inputCity">Landmark</label>
-                      <input type="text" name="landmark" class="form-control" id="inputCity" required>
-                    </div>
-                  </div>
-                  {{!-- <div class="form-group">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="gridCheck">
-                      <label class="form-check-label" for="gridCheck">
-                        Check me out
-                      </label>
-                    </div>
-                  </div> --}}
-                  <button type="submit" class="btn ml-3 text-white" style="background-color:rgb(6, 29, 6) ;">Submit Address</button>
-                </form>
-                    </div>
-                </body>
+    <div class="card-body">
+      {{!-- address form --}}
+      <form action="/submitAddress" method="post">
+        <div class="form-row ml-3">
+          <div class="form-group ">
+            <label for="inputAddress2">First Name</label>
+            <input type="text" name="firstName" class="form-control" id="inputAddress2"
+              placeholder="Enter Your First name" required>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress2">Last Name</label>
+            <input type="text" name="lastName" class="form-control" id="inputAddress2"
+              placeholder="Enter Your Last name" required>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputEmail4">Email</label>
+          <input type="email" name="email" class="form-control" id="inputEmail4" placeholder="Email" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputEmail4">Phone number</label>
+          <input type="number" name="phoneNumber" class="form-control" id="inputEmail4" placeholder="phone number"
+            required>
+        </div>
+        <div class="form-group ml-3">
+          <label for="inputAddress2">Address</label>
+          <input type="text" name="address" class="form-control" id="inputAddress2"
+            placeholder="Apartment, studio, or floor" required>
+        </div>
+        <div class="form-row ml-2">
+          <div class="form-group col-md-6">
+            <label for="inputCity">City</label>
+            <input type="text" name="city" class="form-control" id="inputCity" required>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputState">State</label>
+
+            <input type="text" name="state" class="form-control" id="inputState" required>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputZip">Pin</label>
+            <input type="text" name="pincode" class="form-control" id="inputZip" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputCity">Landmark</label>
+            <input type="text" name="landmark" class="form-control" id="inputCity" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn ml-3 text-white" style="background-color:rgb(6, 29, 6) ;">Submit
+          Address</button>
+      </form>
+    </div>
+</body>

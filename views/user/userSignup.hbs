@@ -1,70 +1,80 @@
- <!-- Sign Up Start -->
-        <div class="container-fluid">
-            <div class="row h-100 align-items-center justify-content-center" style="background-color: #FFFCF9; min-height: 100vh;">
-                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
-                    <div class="bg-white p-4 p-sm-5 my-4 mx-3" style=" border: 5px solid black ;border-radius: 25px;">
-                            <div class="col-md-10 col-lg-6 col-xl-7 w-100 order-1 order-lg-2 d-flex align-items-center justify-content-center">
-                <img src="/admin/img/TheSak.png" class="img-fluid border mb-2" alt="Sample image" width="50%" height="50%">
-              </div>
-                       <form name="signupform" action="/signup" method="post" id="signupform">
-                         <label for="floatingText1">First Name</label>
-                        <div class="form-floating mb-3">
-                            <input name="fname" type="text" class="form-control bg-white" id="floatingText1" placeholder="FirstName" >
-                         
-                          
-                        </div>
-                            <label for="floatingText2">Last Name</label>
-                          <div class="form-floating mb-3">
-                            <input name="lname" type="text" class="form-control bg-white" id="floatingText2" placeholder="LastName" >
-                           
-                        
-                        </div>
-                           <label for="floatingInput">Email address</label>
-                        <div class="form-floating mb-3">
-                            <input name="email" type="email" class="form-control bg-white" id="floatingInput" placeholder="name@example.com">
-                           
-                         
-                        </div>
-                         <label for="floatingTel">Phone number</label>
-                         <div class="form-floating mb-3">
-                            <input name="phonenumber" type="tel" class="form-control bg-white" id="floatingTel" placeholder="jhondoe">
-                       
-                           
-                        </div>
-                         <label for="floatingPassword">Password</label>
-                        <div class="form-floating mb-4">
-                            <input name="password" type="password" class="form-control bg-white" id="floatingPassword" placeholder="Password">
-                             
-                           
-                        </div>
-                          <label for="floatingConfirmPassword">Confirm Password</label>
-                         <div class="form-floating mb-4">
-                           
-                            <input name="confirmpassword" type="password" class="form-control bg-white"  id="floatingConfirmPassword" placeholder="Confirm Password">
-                         
-                           
-                        </div>
-                      {{#if msg}}
-                       <p class="text-danger">{{msg}}</p>
-                        {{/if}}
-                        <button type="submit" class="btn py-3 w-100 mb-4 text-white" style="background-color:rgb(6, 29, 6) ;" >Sign Up</button>
-                        <p class="text-center mb-0 text-dark">Already have an Account? <a href="/login"  style="color: blue;">Login</a></p>
-                       
-                        </form>
-                     
-                    </div>
+<!-- Sign Up Start -->
+<div class="container-fluid">
+    <div class="row h-100 align-items-center justify-content-center"
+        style="background-color: #FFFCF9; min-height: 100vh;">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+            <div class="bg-white p-4 p-sm-5 my-4 mx-3" style=" border: 5px solid black ;border-radius: 25px;">
+                <div
+                    class="col-md-10 col-lg-6 col-xl-7 w-100 order-1 order-lg-2 d-flex align-items-center justify-content-center">
+                    <img src="/admin/img/TheSak.png" class="img-fluid border mb-2" alt="Sample image" width="50%"
+                        height="50%">
                 </div>
+                <form name="signupform" action="/signup" method="post" id="signupform">
+                    <label for="floatingText1">First Name</label>
+                    <div class="form-floating mb-3">
+                        <input name="fname" type="text" class="form-control bg-white" id="floatingText1"
+                            placeholder="FirstName">
+
+
+                    </div>
+                    <label for="floatingText2">Last Name</label>
+                    <div class="form-floating mb-3">
+                        <input name="lname" type="text" class="form-control bg-white" id="floatingText2"
+                            placeholder="LastName">
+
+
+                    </div>
+                    <label for="floatingInput">Email address</label>
+                    <div class="form-floating mb-3">
+                        <input name="email" type="email" class="form-control bg-white" id="floatingInput"
+                            placeholder="name@example.com">
+
+
+                    </div>
+                    <label for="floatingTel">Phone number</label>
+                    <div class="form-floating mb-3">
+                        <input name="phonenumber" type="tel" class="form-control bg-white" id="floatingTel"
+                            placeholder="jhondoe">
+
+
+                    </div>
+                    <label for="floatingPassword">Password</label>
+                    <div class="form-floating mb-4">
+                        <input name="password" type="password" class="form-control bg-white" id="floatingPassword"
+                            placeholder="Password">
+
+
+                    </div>
+                    <label for="floatingConfirmPassword">Confirm Password</label>
+                    <div class="form-floating mb-4">
+
+                        <input name="confirmpassword" type="password" class="form-control bg-white"
+                            id="floatingConfirmPassword" placeholder="Confirm Password">
+
+
+                    </div>
+                    {{#if msg}}
+                    <p class="text-danger">{{msg}}</p>
+                    {{/if}}
+                    <button type="submit" class="btn py-3 w-100 mb-4 text-white"
+                        style="background-color:rgb(6, 29, 6) ;">Sign Up</button>
+                    <p class="text-center mb-0 text-dark">Already have an Account? <a href="/login"
+                            style="color: blue;">Login</a></p>
+
+                </form>
+
             </div>
         </div>
-        <!-- Sign Up End -->
+    </div>
+</div>
+<!-- Sign Up End -->
 
-          
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-     <script src="/js/form-validation.js"></script> 
-      <style>
-        .error{
-            color: red;
-        }
-      </style>
-     
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+<script src="/js/form-validation.js"></script>
+<style>
+    .error {
+        color: red;
+    }
+</style>

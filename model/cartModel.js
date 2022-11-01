@@ -15,13 +15,13 @@ const cartSchema = new mongoose.Schema({
         type: Number,
         default: 1,
       },
-      price:{
-        type:Number,
-        default:0
-      }
-    }
-  ]
+      price: {
+        type: Number,
+        default: 0,
+      },
+    },
+  ],
 });
 
-const Cart=mongoose.model('Cart',cartSchema)
+const Cart = mongoose.model("Cart", cartSchema);
 module.exports = Cart;

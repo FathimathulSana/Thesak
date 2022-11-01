@@ -1,18 +1,18 @@
 <!-- Modal Search -->
-  <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-    <div class="container-search-header">
-      <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-        <img src="images/icons/icon-close2.png" alt="CLOSE" />
-      </button>
+<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+  <div class="container-search-header">
+    <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+      <img src="images/icons/icon-close2.png" alt="CLOSE" />
+    </button>
 
-      <form class="wrap-search-header flex-w p-l-15">
-        <button class="flex-c-m trans-04">
-          <i class="zmdi zmdi-search"></i>
-        </button>
-        <input class="plh3" type="text" name="search" placeholder="Search..." />
-      </form>
-    </div>
+    <form class="wrap-search-header flex-w p-l-15">
+      <button class="flex-c-m trans-04">
+        <i class="zmdi zmdi-search"></i>
+      </button>
+      <input class="plh3" type="text" name="search" placeholder="Search..." />
+    </form>
   </div>
+</div>
 </header>
 
 
@@ -39,26 +39,12 @@
           <h6 class="card-subtitle mb-1 text-muted">ph: {{this.phoneNumber}}</h6>
           <p class="card-text">address: {{this.address}}</p>
           <p class="card-text">Pin: {{this.pincode}}</p>
-          {{!-- <a href="/userDetails" class="btn btn-primary mt-3">Manage</a> --}}
-          {{!-- <a href="#" class="card-link">Another link</a> --}}
+
         </div>
       </div>
       {{/each}}
 
-      {{!-- <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <div class="form-check">
-            <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>Option 1
-            <label class="form-check-label" for="radio1"></label>
-          </div>
-          <h5 class="card-title">Address 1</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-            card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div> --}}
+
     </div>
     <a href="/addAddress" class="btn mt-4 mr-2 text-dark" style="border-color:rgb(6, 29, 6) ;">Add New Address</a>
     <a href="/profile" class="btn mt-4 text-dark" style="border-color:rgb(6, 29, 6) ;">Manage Addresses</a>
@@ -78,13 +64,13 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputAddress2">First Name</label>
-                  <input type="text"  name="firstName" class="form-control" id="firstName"
-                    value="{{this.firstName}}" required>
+                  <input type="text" name="firstName" class="form-control" id="firstName" value="{{this.firstName}}"
+                    required>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputAddress2">Last Name</label>
-                  <input type="text" name="lastName" class="form-control" id="lastName"
-                    value="{{this.lastName}}" required>
+                  <input type="text" name="lastName" class="form-control" id="lastName" value="{{this.lastName}}"
+                    required>
                 </div>
               </div>
               <div class="form-group ">
@@ -119,8 +105,8 @@
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputCity">Landmark</label>
-                  <input type="text" name="landmark" class="form-control" id="landmark"
-                    value="{{this.landmark}}" required>
+                  <input type="text" name="landmark" class="form-control" id="landmark" value="{{this.landmark}}"
+                    required>
                 </div>
               </div>
 
@@ -142,37 +128,37 @@
 
         <!-- Heading -->
         <h4 class="d-flex justify-content-between align-items-center mb-3">
-          {{!-- <span class="text-muted">Your cart</span> --}}
+
           <h2 class="pb-3">Your Cart</h2>
-          {{!-- <span class="badge badge-secondary badge-pill">3</span> --}}
+
         </h4>
 
         <!-- Cart -->
         <div id="CartDiv">
-        <ul class="list-group mb-3 z-depth-1">
-          {{#each cartData.products}}
-          <li class="list-group-item d-flex justify-content-between lh-condensed">
-            <div>
-              <h6 class="my-0">{{this.productId.productname}}</h6>
-              <small class="text-muted">x{{this.quantity}}</small>
-            </div>
-            <span class="text-muted" {{this.productId._id}}price>${{total this.productId.price this.productId.discount
-              this.quantity}}</span>
-          </li>
-          {{/each}}
+          <ul class="list-group mb-3 z-depth-1">
+            {{#each cartData.products}}
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">{{this.productId.productname}}</h6>
+                <small class="text-muted">x{{this.quantity}}</small>
+              </div>
+              <span class="text-muted" {{this.productId._id}}price>${{total this.productId.price this.productId.discount
+                this.quantity}}</span>
+            </li>
+            {{/each}}
 
-          <li class="list-group-item d-flex justify-content-between bg-light">
-            <div class="text-success">
-              <h6 class="my-0">Promo code</h6>
-              <small id="couponCode">CODE</small>
-            </div>
-            <span class="text-success">-$<span id="discountAmount"></span></span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between">
-            <span>Total (US)</span>
-            <strong id="totalAmount">{{totalAmount}}</strong>
-          </li>
-        </ul>
+            <li class="list-group-item d-flex justify-content-between bg-light">
+              <div class="text-success">
+                <h6 class="my-0">Promo code</h6>
+                <small id="couponCode">CODE</small>
+              </div>
+              <span class="text-success">-$<span id="discountAmount"></span></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total (US)</span>
+              <strong id="totalAmount">{{totalAmount}}</strong>
+            </li>
+          </ul>
         </div>
         <!-- Cart -->
         <!-- Promo code -->
@@ -185,8 +171,8 @@
             <input id="couponId" type="text" class="form-control" placeholder="Promo code"
               aria-label="Recipient's username" aria-describedby="basic-addon2">
             <div class="input-group-append">
-              <button onclick="couponValidator('{{totalAmount}}')" class="btn text-white btn-md waves-effect m-0" style="background-color:rgb(6, 29, 6) ;"
-                type="button">Redeem</button>
+              <button onclick="couponValidator('{{totalAmount}}')" class="btn text-white btn-md waves-effect m-0"
+                style="background-color:rgb(6, 29, 6) ;" type="button">Redeem</button>
             </div>
           </div>
           <span>
@@ -211,7 +197,8 @@
                   </div>
                   <div class="card-body p-5" style="background-color: #f7f7f7;">
                     <h5 class="card-title">{{couponCode}}</h5>
-                    <p class="card-text text-dark">Coupon worth ${{discountAmount}} <br> For minimum purchase of ${{minAmount}},Redeem now
+                    <p class="card-text text-dark">Coupon worth ${{discountAmount}} <br> For minimum purchase of
+                      ${{minAmount}},Redeem now
                     </p>
                     <a href="" class="btn btn-primary" style="background-color: black; border: #B19361;"
                       onclick="copyFunction('{{couponCode}}')">Copy Code</a>
@@ -247,8 +234,8 @@
               Online Payment
             </label>
           </div>
-          <div class="pt-5 text-center"> <button type="button" onclick="confirmOrderButton()" class="btn text-white" style="background-color:rgb(6, 29, 6) ;"
-              id="confirmOrder">Confirm Order</button> </div>
+          <div class="pt-5 text-center"> <button type="button" onclick="confirmOrderButton()" class="btn text-white"
+              style="background-color:rgb(6, 29, 6) ;" id="confirmOrder">Confirm Order</button> </div>
         </form>
       </div>
       <!--Grid column-->

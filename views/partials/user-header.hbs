@@ -1,276 +1,231 @@
- {{!-- <header>
-                <nav class="navbar navbar-expand-lg navbar-dark cardbody-color bg col-12 ">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="#"><strong>TheSak</strong></a>
-                          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                         </button>
-                          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                                </li>
-                                  <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="/">Products</a>
-                                </li>
-                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Cart</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Orders</a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link active" aria-current="page" href="#">Contact</a>
-                                </li> 
-                            </ul>
-                            <form class="d-flex" role="search">
-                          <input class="form-control me-2 bg-white" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-light ml-2" type="submit">Search</button>
-                          </form>
-                         </div>
-                    <div class="dropdown ml-auto">
-                 <button class="btn btn-color-dark text-light dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="/images/icons8-male-user-24.png" alt="">
-                 </button>
-                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    {{#if user}}
-   <a class="dropdown-item" href="/logout">Logout</a>
-     <a class="dropdown-item" href="/login">profile</a>
-   {{else}}
-    <a class="dropdown-item" href="/login">Login</a>
-   
-   {{/if}}
-                    </div>
-  
-                </nav>
-            </header> --}}
+<!-- Header -->
+<header class="header-v4">
+	<!-- Header desktop -->
+	<div class="container-menu-desktop">
+		<!-- Topbar -->
 
-
-
-
-            <!-- Header -->
-	<header class="header-v4">
-		<!-- Header desktop -->
-		<div class="container-menu-desktop">
-			<!-- Topbar -->
-			
-			<div class="top-bar">
-				<div class="content-topbar flex-sb-m h-full container">
-					<div class="left-top-bar">
-						Free shipping 
-					</div>
-
-					<div class="right-top-bar flex-w h-full">
-						{{#if userLoggedIn}}
-                         <a href="/userLogout" class="flex-c-m trans-04 p-lr-25">
-						Logout
-						</a>
-						<a href="/profile" class="flex-c-m trans-04 p-lr-25">
-							<img src="/admin/img/icons8-male-user-24.png" alt="profile">
-						</a>
-						{{else}}
-						 <a href="/Login" class="flex-c-m trans-04 p-lr-25">
-						Login/Signup
-						</a>
-						
-						{{/if}}
-
-						
-            
-					
-					</div>
+		<div class="top-bar">
+			<div class="content-topbar flex-sb-m h-full container">
+				<div class="left-top-bar">
+					Free shipping
 				</div>
-			</div>
 
-			<div class="wrap-menu-desktop">
-				<nav class="limiter-menu-desktop container">
-					
-					<!-- Logo desktop -->		
-					<a href="#" class="logo">
-						<img src="/images/text2.png" alt="IMG-LOGO">
+				<div class="right-top-bar flex-w h-full">
+					{{#if userLoggedIn}}
+					<a href="/userLogout" class="flex-c-m trans-04 p-lr-25">
+						Logout
+					</a>
+					<a href="/profile" class="flex-c-m trans-04 p-lr-25">
+						<img src="/admin/img/icons8-male-user-24.png" alt="profile">
+					</a>
+					{{else}}
+					<a href="/Login" class="flex-c-m trans-04 p-lr-25">
+						Login/Signup
 					</a>
 
-					<!-- Menu desktop -->
-					<div class="menu-desktop">
-						<ul class="main-menu">
-								<li>
-								<a href="/">Home</a>
-							</li>
-							<li class="active-menu">
-								<a href="" class="text-dark">Categories</a>
-								<ul class="sub-menu">
-									{{#each categoryDetails}}
-									<li><a href="#">{{this.category}}</a></li>
-									{{/each}}
-									
-								</ul>
-							</li>
+					{{/if}}
 
-							<li>
-								{{#if userLoggedIn}}
-								<a href="/myOrders">MyOrders</a>
-								{{else}}
-								<a href="/Login">MyOrders</a>
-								{{/if}}
-							</li>
 
-							<li>
-								<a href="#">Contact</a>
-							</li>
-						</ul>
-					</div>	
 
-					<!-- Icon header -->
-					<div class="wrap-icon-header flex-w flex-r-m">
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-							<i class="zmdi zmdi-search"></i>
-						</div>
 
-						  {{#if userLoggedIn}}
-                          <a href="/viewCart"> 
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="{{cartCount}}" >
-                                   <i class="zmdi zmdi-shopping-cart"></i>
-                            </div></a>
-                     {{else}}
-                     <a href="/Login"> 
-                                   <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 js-show-cart">
-                                         <i class="zmdi zmdi-shopping-cart"></i>
-                                       </div></a>
-                                       {{/if}}
-   
-                       {{#if userLoggedIn}}
-						<a href="/wishList" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="{{wishlistCount}}">
-							<i class="zmdi zmdi-favorite-outline"></i>
-						</a>
-						{{else}}
-						<a href="/Login" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
-							<i class="zmdi zmdi-favorite-outline"></i>
-						</a>
-						{{/if}}
-					</div>
-				</nav>
-			</div>	
-		</div>
-
-		<!-- Header Mobile -->
-		<div class="wrap-header-mobile">
-			<!-- Logo moblie -->		
-			<div class="logo-mobile">
-				<a href="#"><img src="images/text2.png" alt="IMG-LOGO"></a>
-			</div>
-
-			<!-- Icon header -->
-			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
-				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
-					<i class="zmdi zmdi-search"></i>
 				</div>
-             {{#if userLoggedIn}}
-             <a href="/viewCart"> 
-          <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="{{cartCount}}" >
-            <i class="zmdi zmdi-shopping-cart"></i>
-          </div></a>
-          {{else}}
-            <a href="/Login"> 
-          <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 js-show-cart">
-            <i class="zmdi zmdi-shopping-cart"></i>
-          </div></a>
-          {{/if}}
-                  {{#if userLoggedIn}}
-				<a href="/wishList" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="{{wishlistCount}}">
-					<i class="zmdi zmdi-favorite-outline"></i>
-				</a>
-				{{else}}
-					<a href="/Login" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10">
-					<i class="zmdi zmdi-favorite-outline"></i>
-				</a>
-				{{/if}}
-			</div>
-
-			<!-- Button show menu -->
-			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
-				<span class="hamburger-box">
-					<span class="hamburger-inner"></span>
-				</span>
 			</div>
 		</div>
 
+		<div class="wrap-menu-desktop">
+			<nav class="limiter-menu-desktop container">
 
-		<!-- Menu Mobile -->
-		<div class="menu-mobile">
-			<ul class="topbar-mobile">
-				<li>
-					<div class="left-top-bar">
-						Free shipping 
-					</div>
-				</li>
+				<!-- Logo desktop -->
+				<a href="#" class="logo">
+					<img src="/images/text2.png" alt="IMG-LOGO">
+				</a>
 
-				<li>
-					<div class="right-top-bar flex-w h-full">
-						{{#if userLoggedIn}}
-                         <a href="/userLogout" class="flex-c-m trans-04 p-lr-25">
-						Logout
-						</a>
-						<a href="/profile" class="flex-c-m trans-04 p-lr-25">
-							<img src="/admin/img/icons8-male-user-24.png" alt="profile">
-						</a>
-						{{else}}
-						 <a href="/Login" class="flex-c-m trans-04 p-lr-25">
-						Login/Signup
-						</a>
-						
-						{{/if}}
+				<!-- Menu desktop -->
+				<div class="menu-desktop">
+					<ul class="main-menu">
+						<li>
+							<a href="/">Home</a>
+						</li>
+						<li class="active-menu">
+							<a href="" class="text-dark">Categories</a>
+							<ul class="sub-menu">
+								{{#each categoryDetails}}
+								<li><a href="#">{{this.category}}</a></li>
+								{{/each}}
 
-						
-            
-					
-					</div>
-				</li>
-			</ul>
+							</ul>
+						</li>
 
-			<ul class="main-menu-m">
-				<li>
-					<a href="#">Home</a>
-				</li>
-				<li>
-					<a href="#" class="text-dark">Categories</a>
-					<ul class="sub-menu-m">
-						{{#each categoryDetails}}
-									<li><a href="#">{{this.category}}</a></li>
-						{{/each}}
+						<li>
+							{{#if userLoggedIn}}
+							<a href="/myOrders">MyOrders</a>
+							{{else}}
+							<a href="/Login">MyOrders</a>
+							{{/if}}
+						</li>
+
+						<li>
+							<a href="#">Contact</a>
+						</li>
 					</ul>
-					<span class="arrow-main-menu-m">
-						<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</span>
-				</li>
+				</div>
 
-
-				<li>
-					<a href="about.html">About</a>
-				</li>
-
-				<li>
-					<a href="contact.html">Contact</a>
-				</li>
-			</ul>
-		</div>
-
-		<!-- Modal Search -->
-		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-			<div class="container-search-header">
-				<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-					<img src="images/icons/icon-close2.png" alt="CLOSE">
-				</button>
-
-				<form class="wrap-search-header flex-w p-l-15">
-					<button class="flex-c-m trans-04">
+				<!-- Icon header -->
+				<div class="wrap-icon-header flex-w flex-r-m">
+					<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
 						<i class="zmdi zmdi-search"></i>
-					</button>
-					<input class="plh3" type="text" name="search" placeholder="Search...">
-				</form>
-			</div>
-		</div>
-	</header>
+					</div>
 
-	
+					{{#if userLoggedIn}}
+					<a href="/viewCart">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
+							data-notify="{{cartCount}}">
+							<i class="zmdi zmdi-shopping-cart"></i>
+						</div>
+					</a>
+					{{else}}
+					<a href="/Login">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 js-show-cart">
+							<i class="zmdi zmdi-shopping-cart"></i>
+						</div>
+					</a>
+					{{/if}}
+
+					{{#if userLoggedIn}}
+					<a href="/wishList"
+						class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+						data-notify="{{wishlistCount}}">
+						<i class="zmdi zmdi-favorite-outline"></i>
+					</a>
+					{{else}}
+					<a href="/Login" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+						<i class="zmdi zmdi-favorite-outline"></i>
+					</a>
+					{{/if}}
+				</div>
+			</nav>
+		</div>
+	</div>
+
+	<!-- Header Mobile -->
+	<div class="wrap-header-mobile">
+		<!-- Logo moblie -->
+		<div class="logo-mobile">
+			<a href="#"><img src="images/text2.png" alt="IMG-LOGO"></a>
+		</div>
+
+		<!-- Icon header -->
+		<div class="wrap-icon-header flex-w flex-r-m m-r-15">
+			<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
+				<i class="zmdi zmdi-search"></i>
+			</div>
+			{{#if userLoggedIn}}
+			<a href="/viewCart">
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
+					data-notify="{{cartCount}}">
+					<i class="zmdi zmdi-shopping-cart"></i>
+				</div>
+			</a>
+			{{else}}
+			<a href="/Login">
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 js-show-cart">
+					<i class="zmdi zmdi-shopping-cart"></i>
+				</div>
+			</a>
+			{{/if}}
+			{{#if userLoggedIn}}
+			<a href="/wishList" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
+				data-notify="{{wishlistCount}}">
+				<i class="zmdi zmdi-favorite-outline"></i>
+			</a>
+			{{else}}
+			<a href="/Login" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10">
+				<i class="zmdi zmdi-favorite-outline"></i>
+			</a>
+			{{/if}}
+		</div>
+
+		<!-- Button show menu -->
+		<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+			<span class="hamburger-box">
+				<span class="hamburger-inner"></span>
+			</span>
+		</div>
+	</div>
+
+
+	<!-- Menu Mobile -->
+	<div class="menu-mobile">
+		<ul class="topbar-mobile">
+			<li>
+				<div class="left-top-bar">
+					Free shipping
+				</div>
+			</li>
+
+			<li>
+				<div class="right-top-bar flex-w h-full">
+					{{#if userLoggedIn}}
+					<a href="/userLogout" class="flex-c-m trans-04 p-lr-25">
+						Logout
+					</a>
+					<a href="/profile" class="flex-c-m trans-04 p-lr-25">
+						<img src="/admin/img/icons8-male-user-24.png" alt="profile">
+					</a>
+					{{else}}
+					<a href="/Login" class="flex-c-m trans-04 p-lr-25">
+						Login/Signup
+					</a>
+
+					{{/if}}
+
+
+
+
+				</div>
+			</li>
+		</ul>
+
+		<ul class="main-menu-m">
+			<li>
+				<a href="#">Home</a>
+			</li>
+			<li>
+				<a href="#" class="text-dark">Categories</a>
+				<ul class="sub-menu-m">
+					{{#each categoryDetails}}
+					<li><a href="#">{{this.category}}</a></li>
+					{{/each}}
+				</ul>
+				<span class="arrow-main-menu-m">
+					<i class="fa fa-angle-right" aria-hidden="true"></i>
+				</span>
+			</li>
+
+
+			<li>
+				<a href="about.html">About</a>
+			</li>
+
+			<li>
+				<a href="contact.html">Contact</a>
+			</li>
+		</ul>
+	</div>
+
+	<!-- Modal Search -->
+	<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+		<div class="container-search-header">
+			<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+				<img src="images/icons/icon-close2.png" alt="CLOSE">
+			</button>
+
+			<form class="wrap-search-header flex-w p-l-15">
+				<button class="flex-c-m trans-04">
+					<i class="zmdi zmdi-search"></i>
+				</button>
+				<input class="plh3" type="text" name="search" placeholder="Search...">
+			</form>
+		</div>
+	</div>
+</header>

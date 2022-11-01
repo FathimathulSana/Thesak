@@ -36,33 +36,33 @@ router.get('/add-category',sessionCheck.adminSession,categoryController.getAddCa
 
 router.post('/add-category',sessionCheck.adminSession,categoryController.getAddCategories);
 router.get('/edit-category/:id',sessionCheck.adminSession,categoryController.getEdit);
- router.post('/edit-categories/:id',sessionCheck.adminSession,categoryController.getEdited);
+router.post('/edit-categories/:id',sessionCheck.adminSession,categoryController.getEdited);
 
- router.get('/delete-category/:id',sessionCheck.adminSession,categoryController.getDeleteCategory);
+router.get('/delete-category/:id',sessionCheck.adminSession,categoryController.getDeleteCategory);
 
  /*product management*/
 
- router.get('/products',sessionCheck.adminSession,productController.getProducts);
- router.get('/add-product',sessionCheck.adminSession,productController.getAddProduct);
- router.post('/add-product' ,sessionCheck.adminSession,upload.array('images', 4),productController.postAddProduct);
- router.get('/edit-products/:id',sessionCheck.adminSession,productController.getEditProduct);
- router.post('/edit-products/:id',sessionCheck.adminSession,upload.array('images',4),productController.postEditProduct);
- router.get('/delete-products/:id',sessionCheck.adminSession,productController.getDeleteProduct)
+router.get('/products',sessionCheck.adminSession,productController.getProducts);
+router.get('/add-product',sessionCheck.adminSession,productController.getAddProduct);
+router.post('/add-product' ,sessionCheck.adminSession,upload.array('images', 4),productController.postAddProduct);
+router.get('/edit-products/:id',sessionCheck.adminSession,productController.getEditProduct);
+router.post('/edit-products/:id',sessionCheck.adminSession,upload.array('images',4),productController.postEditProduct);
+router.get('/delete-products/:id',sessionCheck.adminSession,productController.getDeleteProduct)
 
  /*coupon management */
- router.get('/coupon',sessionCheck.adminSession,couponController.getCoupon);
- router.get('/addCoupon',sessionCheck.adminSession,couponController.getAddCoupon);
- router.post('/addCoupon',sessionCheck.adminSession,couponController.postAddCoupon);
- router.get('/editCoupon/:id',sessionCheck.adminSession,couponController.getEditCoupon);
- router.post('/editCoupon/:id',sessionCheck.adminSession,couponController.postEditCoupon);
- router.get('/deleteCoupon/:id',sessionCheck.adminSession,couponController.deleteCoupon);
+router.get('/coupon',sessionCheck.adminSession,couponController.getCoupon);
+router.get('/addCoupon',sessionCheck.adminSession,couponController.getAddCoupon);
+router.post('/addCoupon',sessionCheck.adminSession,couponController.postAddCoupon);
+router.get('/editCoupon/:id',sessionCheck.adminSession,couponController.getEditCoupon);
+router.post('/editCoupon/:id',sessionCheck.adminSession,couponController.postEditCoupon);
+router.get('/deleteCoupon/:id',sessionCheck.adminSession,couponController.deleteCoupon);
 
 
  /*orders management */
 
- router.get('/viewOrders',sessionCheck.adminSession,adminOrderController.viewOrders);
- router.get('/editStatus/:id',sessionCheck.adminSession,adminOrderController.getEditStatus);
- router.post('/postEditStatus/:id',sessionCheck.adminSession,adminOrderController.postEditStatus);
+router.get('/viewOrders',sessionCheck.adminSession,adminOrderController.viewOrders);
+router.get('/editStatus/:id',sessionCheck.adminSession,adminOrderController.getEditStatus);
+router.post('/postEditStatus/:id',sessionCheck.adminSession,adminOrderController.postEditStatus);
 
 /*Banner management */
 

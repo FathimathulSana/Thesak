@@ -1,54 +1,55 @@
- <!-- add products Start -->
-        <div class="container-fluid">
-            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
-                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
-                    <div class="bg-white rounded p-4 p-sm-5 my-4 mx-3" style="border: 5px solid black ;">
-                       
-                      <h1 style="text-decoration: underline;" class="text-center text-dark fw-normal">Add Products</h1>
-                <form action="/admin/add-product" method="post" enctype="multipart/form-data" id="adduserform" class="mt-5">
-                <div class="form-outline form-white mb-4">
-                    <label for="product name">Product Name</label>
-                    <input type="text" id="name" name="productname" class="form-control form-control-lg bg-white" placeholder="Product Name" />
-                   
-                  </div>
-                    <div class="form-group">
-                       <label for="exampleFormControlSelect1">Brand</label>
-                   <select class="form-control bg-white" name="category" id="exampleFormControlSelect1">
-                    {{#each categoryData}}
-                     <option value="{{this._id}}">{{this.category}}</option>
-                    {{/each}}
-                   </select>
-                 </div>
-                 <div class="d-flex my-1">
-                <div class="form-outline form-white mb-4">
-                    <label for="stock">Stock</label>
-                    <input type="number" id="stock" name="stock" class="form-control form-control-lg w-50 bg-white" />
-                  </div>
-                  <div class="form-outline form-white mb-4 ml-auto">
-                    <label for="stock">Price</label>
-                    <input type="text" id="price" name="price" class="form-control form-control-lg w-50 bg-white" />
-                  </div>
-                   <div class="form-outline form-white mb-4 ml-auto">
-                    <label for="stock">Discount</label>
-                    <input type="text" id="discount" name="discount" class="form-control form-control-lg w-50 bg-white" />
-                  </div>
-                  </div>
-                 <div class="form-group">
-                <label for="exampleFormControlTextarea1">Description</label>
-                 <textarea class="form-control bg-white" name="description" id="exampleFormControlTextarea1" placeholder="Description" rows="3"></textarea>
-                </div>
-               
-                   {{!-- <div class="form-group">
-                <label for="exampleFormControlTextarea1">Product Details</label>
-                 <textarea class="form-control bg-white" id="exampleFormControlTextarea1" placeholder="Details" rows="3"></textarea>
-                </div> --}}
-                    
-                    <label for="formFileMultiple" class="form-label">Product images</label>
-                                <input class="form-control bg-white" name="images" type="file" id="formFileMultiple" multiple>
-                   <br>
-                   <button type="submit" class="btn py-3 w-100 mb-4 text-white" style="background-color:rgb(6, 29, 6) ;">Add</button>
-                </form>
-                </div>
+<!-- add products Start -->
+<div class="container-fluid">
+  <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+      <div class="bg-white rounded p-4 p-sm-5 my-4 mx-3" style="border: 5px solid black ;">
+
+        <h1 style="text-decoration: underline;" class="text-center text-dark fw-normal">Add Products</h1>
+        <form action="/admin/add-product" method="post" enctype="multipart/form-data" id="adduserform" class="mt-5">
+          <div class="form-outline form-white mb-4">
+            <label for="product name">Product Name</label>
+            <input type="text" id="name" name="productname" class="form-control form-control-lg bg-white"
+              placeholder="Product Name" />
+
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Brand</label>
+            <select class="form-control bg-white" name="category" id="exampleFormControlSelect1">
+              {{#each categoryData}}
+              <option value="{{this._id}}">{{this.category}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="d-flex my-1">
+            <div class="form-outline form-white mb-4">
+              <label for="stock">Stock</label>
+              <input type="number" id="stock" name="stock" class="form-control form-control-lg w-50 bg-white" />
             </div>
-        </div>
-        <!-- Sign Up End -->
+            <div class="form-outline form-white mb-4 ml-auto">
+              <label for="stock">Price</label>
+              <input type="text" id="price" name="price" class="form-control form-control-lg w-50 bg-white" />
+            </div>
+            <div class="form-outline form-white mb-4 ml-auto">
+              <label for="stock">Discount</label>
+              <input type="text" id="discount" name="discount" class="form-control form-control-lg w-50 bg-white" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Description</label>
+            <textarea class="form-control bg-white" name="description" id="exampleFormControlTextarea1"
+              placeholder="Description" rows="3"></textarea>
+          </div>
+
+
+
+          <label for="formFileMultiple" class="form-label">Product images</label>
+          <input class="form-control bg-white" name="images" type="file" id="formFileMultiple" multiple>
+          <br>
+          <button type="submit" class="btn py-3 w-100 mb-4 text-white"
+            style="background-color:rgb(6, 29, 6) ;">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Sign Up End -->
+</div>

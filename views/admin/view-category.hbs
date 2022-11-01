@@ -1,39 +1,41 @@
-  <!-- Blank Start -->
-            <div class="col-12">
-                <div class="bg-white rounded h-100 p-4">
-                 
-                    <a href="/admin/add-category" class="btn text-white" style="background-color:rgb(6, 29, 6) ;">Add Category</a> 
-                    <div class="table-responsive text-center">
-                        
-                        <table class="table mt-5">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No</th>
-                                   <th scope="col">Category</th>
-                                   <th scope="col">Updations</th
-                                   
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{#each categoryDetails}}
-                                <tr>
-                                    <th scope="row">{{inc @ index}}</th>
-                                       <td>{{this.category}}</td>
-                                       
-                                   
-                                    <td>
-                                       
-                                      <a href="/admin/edit-category/{{this._id}}"> <button  type="button" class="btn m-2 text-white" style="background-color:rgb(6, 29, 6) ;">Edit</button></a>
-                                      
-                                       <a href="/admin/delete-category/{{this._id}}"><button onclick="return confirm('Are you sure about Delete this Category?')"
-                                        type="button" class="btn m-2 text-white" style="background-color:rgb(169, 19, 19) ">Delete</button></a>
-                                     
-                                    </td>
-                                </tr>
-                             {{/each}}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!-- Blank End -->
+<!-- Blank Start -->
+<div class="col-12">
+    <div class="bg-white rounded h-100 p-4">
+
+        <a href="/admin/add-category" class="btn text-white" style="background-color:rgb(6, 29, 6) ;">Add Category</a>
+        <div class="table-responsive text-center">
+
+            <table class="table mt-5">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Updations</th </tr>
+                </thead>
+                <tbody>
+                    {{#each categoryDetails}}
+                    <tr>
+                        <th scope="row">{{inc @ index}}</th>
+                        <td>{{this.category}}</td>
+
+
+                        <td>
+
+                            <a href="/admin/edit-category/{{this._id}}"> <button type="button"
+                                    class="btn m-2 text-white"
+                                    style="background-color:rgb(6, 29, 6) ;">Edit</button></a>
+
+                            <a href="/admin/delete-category/{{this._id}}"><button
+                                    onclick="return confirm('Are you sure about Delete this Category?')" type="button"
+                                    class="btn m-2 text-white"
+                                    style="background-color:rgb(169, 19, 19) ">Delete</button></a>
+
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Blank End -->
