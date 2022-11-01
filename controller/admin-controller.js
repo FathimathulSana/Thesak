@@ -2,19 +2,34 @@ const express = require("express");
 const router = express.Router();
 const fs=require('fs');
 const multer=require('multer');
+const bcrypt = require("bcrypt");
 const session = require("express-session");
-
+const Admin = require('../model/adminModel')
 const User = require("../model/userModel");
 const { updateOne, find } = require("../model/userModel");
 const Order= require('../model/orderModel');
 
 
-
-//----------------------------------------------------------------------------------//
-const adminMail="admin@thesak.com";
-const adminPassword=12345678;
 //---------------------------------------------------------------------------------//
+exports.getAddAdmin = function(req,res,next){
+    try {
+        res.render('admin/add-admin',{layout : 'admin-layout'});
+    } catch (error) {
+        next(error)
+    }
+}
 
+exports.postAddAdmin =async function(req,res,next){
+    try {
+        const adminData=await Admin.findOne({email:req.body.email});
+        if(adminData) return res.render('admin//add-admin',{layout:'admin-layout',msg:'admin already exist,enter a different mail id'});
+      
+          const newAdmin = await Admin.create(req.body);
+          res.redirect('/admin/admin');
+    } catch (error) {
+        next(error)
+    }
+}
 //-------------------admin-login-page-----------------------//
 exports.getAdmin=function(req,res,next){
     try{
@@ -57,24 +72,23 @@ exports.getAdminPanels= async function(req,res,next){
 }
 
 //------------------------post-admin-login------------------//
-exports.getAdminPanel=function(req,res,next){
-    try{
+exports.getAdminPanel=async function(req,res,next){
+ try{
+       if(!req.body.email || !req.body.password) return res.render('admin//admin-login',{loginerr: true})
 
-    if((adminMail==req.body.email) && (adminPassword==req.body.password)){
-        req.session.loggedIn=true;
-    
-        res.render("admin/admin-panel",{layout:'admin-layout'});
-    }else{
-        // res.send("password or id incorrect");
-        req.session.loginerr = true;
-        res.render('admin/admin-login',{loginerr: req.session.loginerr});
-        req.session.loginerr = false;
-    }
+       const adminData=await Admin.findOne({email:req.body.email});
+       if(!adminData) return res.render('admin//admin-login',{msg:'admin not found'})
+
+       const correct=await bcrypt.compare(req.body.password,adminData.password);
+       if(!correct) return res.render('admin//admin-login',{msg:'password incorrect'})
+       req.session.loggedIn=true;
+       res.render('admin/admin-panel',{layout : 'admin-layout'});
+
 }catch(error){
     next(error)
 }
 };
-//-------------------------------------------------------------------------------------------//
+
 
 //------------------------get-users-------------------------//
 exports.getUsers=async function(req,res,next){
@@ -89,7 +103,6 @@ exports.getUsers=async function(req,res,next){
 
     exports.logout=function (req, res, next) {
         try{
-        console.log('ethi');
         req.session.destroy();
         res.redirect('/admin');
         }
@@ -101,11 +114,8 @@ exports.getUsers=async function(req,res,next){
 //----------------------block-users-----------------------//
 exports.getBlocked=async function(req,res,next){
     try{
-    console.log(req.params.id)
      await User.updateOne({_id:req.params.id},{$set:{active:false}})
-     
-
-    res.redirect('/admin/allUsers');
+     res.redirect('/admin/allUsers');
     }catch(error){
         next(error)
     }
@@ -116,12 +126,11 @@ exports.getBlocked=async function(req,res,next){
 
 exports.getUnBlocked=async function(req,res,next){
     try{
- await User.updateOne({_id:req.params.id},{$set:{active:true}})
-
+    await User.updateOne({_id:req.params.id},{$set:{active:true}})
     res.redirect('/admin/allUsers')
 }catch(error){
     next(error)
 }
 }
-//--------------------------------------------------------------------------//
+
     

@@ -21,6 +21,8 @@ router.get('/',adminController.getAdmin);
 router.post('/',adminController.getAdminPanel);
 router.get("/admin",sessionCheck.adminSession,adminController.getAdminPanels)
 router.get('/logout',adminController.logout);
+router.get('/addAdmin',sessionCheck.adminSession,adminController.getAddAdmin);
+router.post('/AddAdmin',sessionCheck.adminSession,adminController.postAddAdmin);
 
 /*User management*/
 router.get('/allUsers',sessionCheck.adminSession,adminController.getUsers);
