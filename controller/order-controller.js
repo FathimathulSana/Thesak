@@ -5,6 +5,7 @@ const Order = require('../model/orderModel');
 const razorpayController = require('../controller/razorpay-controller')
 const cartFunction = require('../controller/cart-function');
 const { totalAmount } = require('../controller/cart-function');
+const Count = require('../controller/cartWishlist-count');
 const Coupon = require('../model/couponModel');
 
 
@@ -88,6 +89,8 @@ module.exports = {
         try {
             const userLoggedIn = req.session.userLoggedIn;
             userId = req.session.userId;
+            let cartCount = await Count.getCartCount(req,res);
+            let wishlistCount = await Count.getWishlistCount(req,res);
             let orderData = await Order.find({ userId : userId }).sort({ createdAt : -1 }).populate("products.productId").lean();
             for( let i=0 ; i < orderData ; i++ ){
                 if(orderData[i].status == 'cancelled'){
@@ -96,7 +99,7 @@ module.exports = {
                     orderData[i].delivered = true ;
                 }
             }
-            res.render('user/orders',{layout : 'user-layout',userLoggedIn,orderData})
+            res.render('user/orders',{layout : 'user-layout',userLoggedIn,orderData,cartCount,wishlistCount})
         } catch (error) {
             next(error)
         }

@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 
 const User= require('../model/userModel')
 const Address = require('../model/addressModel');
+const Count = require('../controller/cartWishlist-count');
 
 module.exports={
 
@@ -11,12 +12,14 @@ module.exports={
 
         const userLoggedIn=req.session.userLoggedIn;
            const userId=req.session.userId;
+           let cartCount = await Count.getCartCount(req,res);
+           let wishlistCount = await Count.getWishlistCount(req,res);
           // console.log(userId,'55555555666666');
            const userDetails = await User.findOne( {_id : userId} ).lean();
            const addressData = await Address.find( {userId : userId} ).lean();
            //console.log(addressData,"2222222222");
             
-           res.render('user/user-profile',{userDetails,addressData,layout:'user-layout',userLoggedIn});
+           res.render('user/user-profile',{userDetails,addressData,layout:'user-layout',userLoggedIn,cartCount,wishlistCount});
 
         }catch(error){
             next(error)

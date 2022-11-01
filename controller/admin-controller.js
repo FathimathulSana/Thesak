@@ -4,13 +4,9 @@ const fs=require('fs');
 const multer=require('multer');
 const session = require("express-session");
 
-const adminController = require("../controller/admin-controller");
-
 const User = require("../model/userModel");
 const { updateOne, find } = require("../model/userModel");
-const Category = require("../model/categoryModel");
-const Product = require("../model/productModel");
-const admin=('../model/adminModel');
+const Order= require('../model/orderModel');
 
 
 
@@ -38,11 +34,23 @@ exports.getAdmin=function(req,res,next){
  
 }
 //-------------------get-admin-panel----------------------//
-exports.getAdminPanels=function(req,res,next){
+exports.getAdminPanels= async function(req,res,next){
     try{
+        let delivered = await Order.find({ status: 'delivered' }, { status: 1, _id: 0 }).lean()
+        let deliveredCount = delivered.length
+        let shipped = await Order.find({ status: 'shipped' }, { status: 1, _id: 0 }).lean()
+        let shippedCount = shipped.length
+        let cancelled = await Order.find({ status: 'cancelled' }, { status: 1, _id: 0 }).lean()
+        let cancelledCount = cancelled.length
+        let placed = await Order.find({ status: 'placed' }, { status: 1, _id: 0 }).lean()
+        let placedCount = placed.length
     
-    res.render("admin/admin-panel",{layout:'admin-layout'});
-
+        let orderData = await Order.find().populate('products.productId').lean()
+        const deliveredOrder = orderData.filter(e => e.status == 'delivered')
+        const TotalRevenue = deliveredOrder.reduce((accr, crr) => accr + crr.grandTotal, 0)
+        const eachDaySale = await Order.aggregate([{ $match: { status: "delivered" } }, { $group: { _id: { day: { $dayOfMonth: "$createdAt" }, month: { $month: "$createdAt" }, year: { $year: "$createdAt" } }, total: { $sum: "$grandTotal" } } }]).sort({ _id: -1 })
+        let today = new Date()
+        res.render("admin/admin-panel", { admin: req.session.admin,  layout: "admin-layout", deliveredCount, shippedCount, cancelledCount, placedCount, TotalRevenue, eachDaySale });
     }catch(error){
         next(error)
     }

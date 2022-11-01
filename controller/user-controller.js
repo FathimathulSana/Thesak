@@ -6,10 +6,12 @@ const session =require("express-session");
 
 const otpController = require('../controller/otp-controller');
 
+const Banner = require("../model/bannerModel");
 const Category = require("../model/categoryModel");
 const Product = require("../model/productModel");
 const User = require("../model/userModel");
-const admin=('../model/userModel');
+const Count = require('../controller/cartWishlist-count');
+
 
 //-------------------------get-homePage--------------------------//
 exports.getHome=async function(req,res,next){
@@ -20,8 +22,11 @@ exports.getHome=async function(req,res,next){
  
    const username = req.session.name;  
    const categoryDetails = await Category.find().lean();
+   const bannerData = await Banner.find().populate('product').lean();
+   let cartCount = await Count.getCartCount(req,res);
+   let wishlistCount = await Count.getWishlistCount(req,res);
  
-   res.render('index',{userLoggedIn,products,categoryDetails,layout:'user-layout'});
+   res.render('index',{userLoggedIn,products,categoryDetails,layout:'user-layout',bannerData,cartCount,wishlistCount});
 
   }catch(error){
     next(error)
@@ -156,13 +161,15 @@ exports.getProductView=async function(req,res,next) {
   let userLoggedIn=req.session.userLoggedIn;
   let  id=req.params.id;
    let products = await Product.find().lean();
+   let cartCount = await Count.getCartCount(req,res);
+   let wishlistCount = await Count.getWishlistCount(req,res);
 
   let productDetails=await Product.find({_id:id}).populate('category').lean();
   //console.log(productDetails);
 
   let categoryDetails = await Category.find().lean();
 
-  res.render('user/product-view',{layout:'user-layout',productDetails,categoryDetails,products,userLoggedIn});
+  res.render('user/product-view',{layout:'user-layout',productDetails,categoryDetails,products,userLoggedIn,cartCount,wishlistCount});
 
 }catch(error){
   next(error)

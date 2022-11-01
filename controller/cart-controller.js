@@ -4,6 +4,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const session =require("express-session")
 const cartFunction = require('../controller/cart-function');
+const Count = require('../controller/cartWishlist-count');
 
 
 const Cart = require("../model/cartModel");
@@ -53,17 +54,19 @@ module.exports={
         let userLoggedIn=req.session.userLoggedIn;
         let userId=req.session.userId;
         let categoryDetails = await Category.find().lean();
+        let cartCount = await Count.getCartCount(req,res);
+        let wishlistCount = await Count.getWishlistCount(req,res);
         cartDetails= await Cart.findOne({userId : userId}).populate("products.productId").lean();
         let totalAmount;
         if(cartDetails){
             //check whether cart is empty//
             if(cartDetails.products[0]){
             totalAmount= await cartFunction.totalAmount(cartDetails);
-            return res.render('user/view-cart',{categoryDetails,cartDetails,totalAmount,layout:'user-layout',userLoggedIn});
+            return res.render('user/view-cart',{categoryDetails,cartDetails,totalAmount,layout:'user-layout',userLoggedIn,cartCount,wishlistCount});
         }
-        res.render('user/empty-cart',{layout:'user-layout',categoryDetails,userLoggedIn});
+        res.render('user/empty-cart',{layout:'user-layout',categoryDetails,userLoggedIn,cartCount,wishlistCount});
     }else{
-        res.render('user/empty-cart',{layout:'user-layout',categoryDetails,userLoggedIn});
+        res.render('user/empty-cart',{layout:'user-layout',categoryDetails,userLoggedIn,cartCount,wishlistCount});
     }
      
 

@@ -2,7 +2,7 @@ const { rawListeners } = require("../app");
 let product = require("../model/productModel");
 let wishList = require('../model/wishlistModel');
 const Category = require("../model/categoryModel");
-
+const Count = require('../controller/cartWishlist-count');
 module.exports={
 
     //------------------------get-wishlist-----------------------//
@@ -13,14 +13,16 @@ module.exports={
         const userLoggedIn=req.session.userLoggedIn;
           const userId=req.session.userId;
           let categoryDetails = await Category.find().lean();
+          let cartCount = await Count.getCartCount(req,res);
+          let wishlistCount = await Count.getWishlistCount(req,res);
           const wishlistData= await wishList.findOne( { userId : userId } ).populate( "products.productId" ).lean();
           if(wishlistData){
             if(wishlistData.products[0]){
-              return res.render('user/wish-list',{wishlistData,layout:'user-layout',userLoggedIn,categoryDetails});
+              return res.render('user/wish-list',{wishlistData,layout:'user-layout',userLoggedIn,categoryDetails,cartCount,wishlistCount});
             }
-            res.render('user/empty-wishlist',{layout : 'user-layout',categoryDetails,userLoggedIn});
+            res.render('user/empty-wishlist',{layout : 'user-layout',categoryDetails,userLoggedIn,cartCount,wishlistCount});
           }else{
-            res.render('user/empty-wishlist',{layout : 'user-layout',categoryDetails,userLoggedIn});
+            res.render('user/empty-wishlist',{layout : 'user-layout',categoryDetails,userLoggedIn,cartCount,wishlistCount});
           }
          
 
