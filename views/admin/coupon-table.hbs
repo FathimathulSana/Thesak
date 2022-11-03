@@ -32,8 +32,7 @@
                                 <td>{{formatString this.expiryDate}}</td>
                                 <td><a href="/admin/editCoupon/{{this._id}}"><i class="bi bi-pencil-square"></i></a>
                                 </td>
-                                <td><a href="/admin/deleteCoupon/{{this._id}}"><i class="bi bi-trash"
-                                            onclick="return confirm('Are you sure to delete {{this.couponName}}?')"></i></a>
+                                <td> <a href=""><i class="bi bi-trash" onclick="deleteCoupon('{{this._id}}')"></i></a>
                                 </td>
 
                             </tr>
@@ -53,3 +52,43 @@
 <!-- Back to Top -->
 <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 </div>
+<script>
+  function deleteCoupon(couponId) {
+    event.preventDefault();
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        $.ajax({
+
+          url: '/admin/deleteCoupon',
+          data: {
+            couponId : couponId
+
+          },
+
+          method: 'post',
+          success: (response) => {
+            console.log(response, "responce")
+            if (response) {
+              location.reload()
+            }
+
+          }
+
+        })
+
+      }
+    })
+
+  }
+
+</script>

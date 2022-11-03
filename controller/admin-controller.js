@@ -147,8 +147,9 @@ exports.logout = function (req, res, next) {
 //----------------------block-users-----------------------//
 exports.getBlocked = async function (req, res, next) {
   try {
-    await User.updateOne({ _id: req.params.id }, { $set: { active: false } });
-    res.redirect("/admin/allUsers");
+    let userId = req.body.userId;
+    await User.updateOne({ _id : userId }, { $set: { active: false } });
+    res.json({});
   } catch (error) {
     next(error);
   }
@@ -158,7 +159,8 @@ exports.getBlocked = async function (req, res, next) {
 
 exports.getUnBlocked = async function (req, res, next) {
   try {
-    await User.updateOne({ _id: req.params.id }, { $set: { active: true } });
+    let userId = req.body.userId;
+    await User.updateOne({ _id: userId }, { $set: { active: true } });
     res.redirect("/admin/allUsers");
   } catch (error) {
     next(error);

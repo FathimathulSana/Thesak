@@ -63,8 +63,8 @@ exports.getLogin = function (req, res, next) {
 
 exports.LoginAction = async function (req, res, next) {
   try {
-    if (!req.body.email || !req.body.password)
-      return res.render("user//userLogin", { loginerr: true });
+    if (!req.body.email && !req.body.password)
+      return res.render("user//userLogin", { msg : 'invalid email and password' });
     let products = await Product.find().populate("category").lean();
     const userData = await User.findOne({ email: req.body.email });
     if (!userData)

@@ -95,11 +95,11 @@ module.exports = {
 
   deleteBanner: async function (req, res, next) {
     try {
-      let bannerId = req.params.id;
+      let bannerId = req.body.bannerId;
       imagePath = await Banner.findOne({ _id: bannerId }, { _id: 0, image: 1 });
       fs.unlinkSync("public/bannerImageUploads/" + imagePath.image);
-      await Banner.findOneAndDelete({ _id: bannerId });
-      res.redirect("/admin/banner");
+      await Banner.findOneAndDelete({ _id : bannerId });
+      res.json({});
     } catch (error) {
       next(error);
     }

@@ -119,8 +119,9 @@ exports.postEditProduct = async function (req, res, next) {
 
 exports.getDeleteProduct = async function (req, res, next) {
   try {
-    await Product.findByIdAndDelete(req.params.id);
-    res.redirect("/admin/products");
+    let prodId = req.body.prodId;
+    await Product.findByIdAndDelete(prodId);
+    res.json({});
   } catch (error) {
     next(error);
   }

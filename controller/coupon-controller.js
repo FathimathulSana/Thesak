@@ -84,8 +84,10 @@ module.exports = {
   },
   deleteCoupon: async function (req, res, next) {
     try {
-      await Coupon.deleteOne({ _id: req.params.id });
-      res.redirect("/admin/coupon");
+      console.log(req.body.couponId,'couponid')
+      let couponId = req.body.couponId;
+      await Coupon.deleteOne({ _id : couponId });
+      res.json({});
     } catch (error) {
       next(error);
     }

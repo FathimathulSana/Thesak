@@ -63,9 +63,12 @@ exports.getEdited = async function (req, res, next) {
 //---------------------Delete-category-------------------------//
 
 exports.getDeleteCategory = async function (req, res, next) {
+  
   try {
-    await Category.findByIdAndDelete(req.params.id);
-    res.redirect("/admin/category");
+    let catId = req.body.catId;
+    console.log(catId,'categoryId')
+    await Category.findByIdAndDelete(catId);
+    res.json({});
   } catch (error) {
     next(error);
   }

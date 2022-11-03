@@ -1,41 +1,78 @@
 <!-- Blank Start -->
 <div class="col-12">
-    <div class="bg-white rounded h-100 p-4">
+  <div class="bg-white rounded h-100 p-4">
 
-        <a href="/admin/add-category" class="btn text-white" style="background-color:rgb(6, 29, 6) ;">Add Category</a>
-        <div class="table-responsive text-center">
+    <a href="/admin/add-category" class="btn text-white" style="background-color:rgb(6, 29, 6) ;">Add Category</a>
+    <div class="table-responsive text-center">
 
-            <table class="table mt-5">
-                <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Updations</th </tr>
-                </thead>
-                <tbody>
-                    {{#each categoryDetails}}
-                    <tr>
-                        <th scope="row">{{inc @ index}}</th>
-                        <td>{{this.category}}</td>
+      <table class="table mt-5">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Category</th>
+            <th scope="col">Updations</th </tr>
+        </thead>
+        <tbody>
+          {{#each categoryDetails}}
+          <tr>
+            <th scope="row">{{inc @ index}}</th>
+            <td>{{this.category}}</td>
 
 
-                        <td>
+            <td>
 
-                            <a href="/admin/edit-category/{{this._id}}"> <button type="button"
-                                    class="btn m-2 text-white"
-                                    style="background-color:rgb(6, 29, 6) ;">Edit</button></a>
+              <a href="/admin/edit-category/{{this._id}}"> <button type="button" class="btn m-2 text-white"
+                  style="background-color:rgb(6, 29, 6) ;">Edit</button></a>
+              <button type="button" onclick="deleteCategory('{{this._id}}')" class="btn btn-danger mr-5"
+                style="background-color:rgb(169, 19, 19) ">Delete</button>
 
-                            <a href="/admin/delete-category/{{this._id}}"><button
-                                    onclick="return confirm('Are you sure about Delete this Category?')" type="button"
-                                    class="btn m-2 text-white"
-                                    style="background-color:rgb(169, 19, 19) ">Delete</button></a>
-
-                        </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
 <!-- Blank End -->
+<script>
+  function deleteCategory(catId) {
+    event.preventDefault();
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      console.log(result);
+      if (result.isConfirmed) {
+
+        $.ajax({
+
+          url: '/admin/deleteCategory',
+          data: {
+            catId: catId
+
+          },
+
+          method: 'post',
+          success: (response) => {
+            console.log(response, "responce")
+            if (response) {
+              location.reload()
+            }
+
+          }
+
+        })
+
+      }
+    })
+
+  }
+
+</script>
