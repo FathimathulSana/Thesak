@@ -1,5 +1,5 @@
 <div class="container">
-    <table class="table" id="product-table" style="margin-top: 100px;">
+    <table class="table" id="product-table" style="margin-top: 50px;">
         <thead style="background-color: black; color: white;">
             <tr>
                 <th scope="col">No</th>
@@ -20,7 +20,7 @@
                 <td>
                     {{#products}}
                     <ul>
-                        <li><img src="/productImageuploads/{{productId.imagepath.[0]}}" style="width:50px;height:50px;">
+                        <li><img src="/productImageuploads/{{productId.imagepath.[0]}}" style="width:50px;height:50px;"> 
                         </li> <br>
 
                     </ul> {{/products}}
@@ -35,9 +35,9 @@
 
                 <td scope="row">
                     <ul>
-                        <li>${{this.grandTotal}}</li>
+                        <li>{{this.grandTotal}}</li>
 
-                    </ul>
+                    </ul> 
                 </td>
                 <td scope="row">
                     {{#products}}
@@ -48,18 +48,19 @@
                 </td>
                 {{!-- <td scope="row">gfgf</td> --}}
                 <td id="orderStatus" scope="row">{{this.status}}</td>
-
+                
                 {{#if this.cancelled}}
                 <td id="orderStatus" scope="row">Already cancelled</td>
                 {{else}} {{#if this.delivered}}
                 <td id="orderStatus" scope="row">Already delivered</td>
                 {{else}}
                 <td scope="row">
-                    <button class="btn btn-outline-danger btn-sm" onclick="cancelOrder('{{this._id}}');">Cancel</button>
+                    <button class="btn btn-outline-danger btn-sm"
+                            onclick="cancelOrder('{{this._id}}');">Cancel</button>
                 </td>
-
+                
                 {{/if}}{{/if}}
-
+                
             </tr>
             {{/each}}
         </tbody>

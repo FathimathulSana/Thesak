@@ -157,3 +157,47 @@ exports.getProductView = async function (req, res, next) {
     next(error);
   }
 };
+// ------------------forgot-password-----------------//
+
+exports.getForgotPassword = function(req,res,next){
+  try{
+  res.render('user/forgot-password');
+  }catch(error){
+    next(error)
+  }
+};
+
+exports.postForgotPassword = async function(req,res,next){
+  try {
+    let userData = await User.findOne({email : req.body.email});
+    if(userData){
+      const newpassword = await bcrypt.hash(req.body.password, 10);
+      await User.findOneAndUpdate(
+        { $set: { password: newpassword , confirmpassword : newpassword} });
+        res.redirect('/Login');
+    }
+    if(!userData || !req.body.email)
+      return res.render("user//forgot-password", { msg : 'Enter correct email' });
+    
+  } catch (error) {
+    next(error)
+  }
+};
+
+// exports.postResetPassword = async function(req,res,next){
+//   try {
+//     const userData = await User.findOne({}).lean();
+//      console.log(userData,"555555555");
+//       const newpassword = await bcrypt.hash(req.body.password, 10);
+//       await User.findOneAndUpdate(
+//         { _id: userId },
+//         { $set: { password: newpassword } })
+   
+      
+//   } catch (error) {
+//     next(error)
+//   }
+// }
+
+
+

@@ -100,39 +100,40 @@ module.exports = {
     }
   },
 
-  myOrders: async function (req, res, next) {
+  myOrders: async (req, res, next) => {
     try {
       const userLoggedIn = req.session.userLoggedIn;
-      userId = req.session.userId;
       let cartCount = await Count.getCartCount(req, res);
       let wishlistCount = await Count.getWishlistCount(req, res);
+      userId = req.session.userId;
       let orderData = await Order.find({ userId: userId })
         .sort({ createdAt: -1 })
         .populate("products.productId")
         .lean();
-      for (let i = 0; i < orderData; i++) {
+      for (let i = 0; i < orderData.length; i++) {
         if (orderData[i].status == "cancelled") {
           orderData[i].cancelled = true;
         } else if (orderData[i].status == "delivered") {
           orderData[i].delivered = true;
         }
       }
+
       res.render("user/orders", {
-        layout: "user-layout",
-        userLoggedIn,
         orderData,
+        layout: "user-layout",
         cartCount,
         wishlistCount,
+        userLoggedIn,
       });
     } catch (error) {
       next(error);
     }
   },
 
-  cancelOrder: async function (req, res, next) {
+  cancelOrder: async (req, res, next) => {
     try {
-      const userId = req.session.userId;
-      const orderId = req.body.orderId;
+      userId = req.session.userId;
+      orderId = req.body.orderId;
       await Order.findOneAndUpdate(
         { _id: orderId },
         { $set: { status: "cancelled" } }

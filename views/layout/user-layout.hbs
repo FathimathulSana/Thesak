@@ -703,28 +703,37 @@
 </script>
 {{!-- ------------------------cancel-order---------------------------- --}}
 <script>
-  function cancelOrder(orderId) {
+    function cancelOrder(orderId) {
 
-    $.ajax({
-      url: '/cancelOrder',
-      data: {
-        orderId: orderId
-      },
-      method: 'post',
 
-      success: (responce) => {
-        console.log(responce, 'responce');
-        location.reload();
-      },
+        $.ajax({
+            url: '/cancelOrder',
+            data: {
 
-      error: (error) => {
-        alert('error');
-        console.log(error);
-      }
-    })
+                orderId: orderId
 
-  }
+            },
+            method: 'post',
+            success: (res) => {
+                console.log("res:",res)
+                location.reload()
+                //event.preventDefault()
+
+
+
+
+
+            },
+            error: (error) => {
+                alert('hierror')
+                console.log(error)
+            },
+        })
+    }
+
+
 </script>
+
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 

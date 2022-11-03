@@ -73,4 +73,11 @@ router.get('/myOrders',sessionCheck.userSession,orderController.myOrders);
 router.post('/cancelOrder',sessionCheck.userSession,orderController.cancelOrder);
 
 
+//--------------forgot-password-----------------//
+
+router.get('/forgotPassword',userController.getForgotPassword);
+router.post('/forgotPassword',userController.postForgotPassword);
+
+
+
 module.exports = router;
