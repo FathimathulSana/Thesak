@@ -26,7 +26,8 @@ module.exports = {
       if (wishlistData) {
         wishlistCount = wishlistData.products.length;
         return wishlistCount;
-      }
+      }else
+      return wishlistCount = 0;
     } catch (error) {
       next(error);
     }
