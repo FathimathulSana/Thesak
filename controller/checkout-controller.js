@@ -30,6 +30,8 @@ module.exports = {
     } catch (error) {
       next(error);
     }
+console.log("hello ivda ethye");
+
   },
   billingAddress: async function (req, res, next) {
     const userId = req.session.userId;
