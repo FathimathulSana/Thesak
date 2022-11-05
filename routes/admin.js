@@ -1,9 +1,9 @@
 const express = require('express');
-const app = require('../app');
+// const app = require('../app');
 const router = express.Router();
-const mongoose=require('mongoose');
-const multer = require('multer');
-const path = require('path');
+// const mongoose=require('mongoose');
+// const multer = require('multer');
+// const path = require('path');
 const sessionCheck = require('../middleware/session')
 const upload = require('../middleware/imageMulter');
 const uploads = require('../middleware/bannerMulter');

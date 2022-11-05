@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 const Coupon = require("../model/couponModel");
 
 module.exports = {

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
-const app = require('../app');
+// const mongoose = require("mongoose");
+// const app = require('../app');
 const sessionCheck = require('../middleware/session')
 
 const userController = require("../controller/user-controller");
@@ -13,7 +13,7 @@ const couponController=require('../controller/coupon-controller');
 const orderController=require('../controller/order-controller');
 
 
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 
 
 router.get('/',userController.getHome) ;

@@ -1,7 +1,7 @@
 const express = require("express");
-const router = express.Router();
-const mongoose = require("mongoose");
-const session = require("express-session");
+// const router = express.Router();
+// const mongoose = require("mongoose");
+// const session = require("express-session");
 
 const cartFunction = require("../controller/cart-function");
 const Count = require("../controller/cartWishlist-count");

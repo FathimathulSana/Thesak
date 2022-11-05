@@ -1,7 +1,7 @@
-const express = require("express");
-const session = require("express-session");
-const router = express.Router();
-const { updateOne, find } = require("../model/userModel");
+// const express = require("express");
+// const session = require("express-session");
+// const router = express.Router();
+// const { updateOne, find } = require("../model/userModel");
 const Category = require("../model/categoryModel");
 
 //--------------------------get-category---------------------------------//

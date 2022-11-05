@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
 const { Promise } = require("mongoose");
-const { nextTick } = require("process");
+// const { nextTick } = require("process");
 dotenv.config();
 const process = require("process");
 

@@ -1,12 +1,12 @@
 const express = require("express");
-const router = express.Router();
-const fs = require("fs");
-const multer = require("multer");
+// const router = express.Router();
+// const fs = require("fs");
+// const multer = require("multer");
 const bcrypt = require("bcrypt");
-const session = require("express-session");
+// const session = require("express-session");
 const Admin = require("../model/adminModel");
 const User = require("../model/userModel");
-const { updateOne, find } = require("../model/userModel");
+//const { updateOne, find } = require("../model/userModel");
 const Order = require("../model/orderModel");
 
 //---------------------------------------------------------------------------------//

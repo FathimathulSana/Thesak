@@ -1,10 +1,10 @@
-const express = require("express");
-const router = express.Router();
-const session = require("express-session");
-const multer = require("multer");
+// const express = require("express");
+// const router = express.Router();
+// const session = require("express-session");
+// const multer = require("multer");
 const fs = require("fs");
 
-const { updateOne, find } = require("../model/userModel");
+// const { updateOne, find } = require("../model/userModel");
 const Category = require("../model/categoryModel");
 const Product = require("../model/productModel");
 

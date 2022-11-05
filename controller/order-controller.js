@@ -2,7 +2,7 @@ let Cart = require("../model/cartModel");
 const Order = require("../model/orderModel");
 const razorpayController = require("../controller/razorpay-controller");
 const cartFunction = require("../controller/cart-function");
-const { totalAmount } = require("../controller/cart-function");
+// const { totalAmount } = require("../controller/cart-function");
 const Count = require("../controller/cartWishlist-count");
 const Coupon = require("../model/couponModel");
 

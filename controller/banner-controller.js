@@ -1,7 +1,7 @@
 const Banner = require("../model/bannerModel");
 const Product = require("../model/productModel");
 const fs = require("fs");
-const { nextTick } = require("process");
+// const { nextTick } = require("process");
 
 module.exports = {
   getBanner: async function (req, res, next) {
