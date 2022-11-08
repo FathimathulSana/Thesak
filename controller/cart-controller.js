@@ -33,14 +33,14 @@ module.exports = {
             { userId: userId },
             { $push: { products: { productId: productId, quantity: 1 } } }
           );
-          res.json({ message: "success" });
+          res.json({ status: true });
         }
       } else {
         await Cart.create({
           userId: userId,
           products: { productId: productId, quantity: 1 },
         });
-        res.json({ message: "success" });
+        res.json({ status: true });
       }
     } catch (error) {
       next(error);

@@ -79,7 +79,7 @@
 					{{#if userLoggedIn}}
 					<a href="/viewCart">
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
-							data-notify="{{cartCount}}">
+							id="cart-count" data-notify="{{cartCount}}">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 					</a>
@@ -94,7 +94,7 @@
 					{{#if userLoggedIn}}
 					<a href="/wishList"
 						class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-						data-notify="{{wishlistCount}}">
+						id="wish-count" data-notify="{{wishlistCount}}">
 						<i class="zmdi zmdi-favorite-outline"></i>
 					</a>
 					{{else}}
@@ -122,7 +122,7 @@
 			{{#if userLoggedIn}}
 			<a href="/viewCart">
 				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
-					data-notify="{{cartCount}}">
+					id="cart-count" data-notify="{{cartCount}}">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
 			</a>
@@ -135,7 +135,7 @@
 			{{/if}}
 			{{#if userLoggedIn}}
 			<a href="/wishList" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
-				data-notify="{{wishlistCount}}">
+				id="wish-count" data-notify="{{wishlistCount}}">
 				<i class="zmdi zmdi-favorite-outline"></i>
 			</a>
 			{{else}}

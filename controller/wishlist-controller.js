@@ -1,4 +1,3 @@
-// const { rawListeners } = require("../app");
 let wishList = require("../model/wishlistModel");
 const Category = require("../model/categoryModel");
 const Count = require("../controller/cartWishlist-count");

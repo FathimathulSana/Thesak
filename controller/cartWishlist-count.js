@@ -5,13 +5,14 @@ module.exports = {
   getCartCount: async function (req, res, next) {
     try {
       let userId = req.session.userId;
-      let cartData = await Cart.findOne({ userId: userId }).lean();
       let cartCount = 0;
-      if (cartData) {
-        cartCount = cartData.products.length;
-        return cartCount;
-      }else
-        return cartCount = 0;
+      if (userId) {
+        let cart = await Cart.findOne({ userId: userId }).lean();
+        if (cart) {
+          cartCount = cart.products.length;
+        }
+      }
+      return cartCount;
     } catch (error) {
       next(error);
     }
@@ -20,14 +21,14 @@ module.exports = {
   getWishlistCount: async function (req, res, nex) {
     try {
       let userId = req.session.userId;
-
-      let wishlistData = await Wishlist.findOne({ userId: userId }).lean();
       let wishlistCount = 0;
-      if (wishlistData) {
-        wishlistCount = wishlistData.products.length;
-        return wishlistCount;
-      }else
-      return wishlistCount = 0;
+      if (userId) {
+        let wishlist = await Wishlist.findOne({ userId: userId }).lean();
+        if (wishlist) {
+          wishlistCount = wishlist.products.length;
+        }
+      }
+      return wishlistCount;
     } catch (error) {
       next(error);
     }

@@ -3,11 +3,12 @@
 
 <head>
   <title>Thesak</title>
- <link rel="icon" type="image/x-icon" href="/admin/img/wp7735499.jpg">
+  <link rel="icon" type="image/x-icon" href="/admin/img/wp7735499.jpg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!--===============================================================================================-->
-  {{!-- <link rel="icon" type="image/png" href="/images/icons/favicon.png" /> --}}
+  {{!--
+  <link rel="icon" type="image/png" href="/images/icons/favicon.png" /> --}}
   <!--===============================================================================================-->
   <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
   <!--===============================================================================================-->
@@ -195,14 +196,18 @@
           method: 'post',
           success: (response) => {
             console.log(response)
-            swal("Good job!", "Item added to Cart", "success");
-            // alert('success')
-
+            if (response.status) {
+              let count = document.getElementById('cart-count')
+              countValue = count.getAttribute('data-notify')
+              console.log(countValue)
+              count.setAttribute('data-notify', parseInt(countValue) + 1)
+            } else
+              console.log(responce)
 
           },
           error: (error) => {
             console.log(error)
-            // alert('failed');
+
           },
         })
       }
@@ -322,16 +327,20 @@
 
           success: (responce) => {
 
-            if (response) {
+            if (response.status) {
+              console.log(response.status, "ADDTOwishSCRIPT")
+              let count = document.getElementById('wish-count')
+              countValue = count.getAttribute('data-notify')
+              console.log(countValue)
+              count.setAttribute('data-notify', parseInt(countValue) + 1)
 
-              location.reload();
-              //alert('added to wishlist');
+            } else
+              console.log(responce)
 
-            }
           },
 
           error: (error) => {
-            alert("error");
+            console.log(error)
           }
         })
       }
@@ -411,7 +420,6 @@
 
             if (responce) {
               location.reload();
-              alert('deleted successfully');
             }
           }
         })
@@ -442,7 +450,7 @@
         }
       },
       error: (error) => {
-        alert(error);
+      console.log(error);
       }
     },)
   };
@@ -475,7 +483,10 @@
         }
       },
       error: (error) => {
-        alert('password incorrect, make sure you entered correct password');
+        Swal.fire({
+      title: 'Password incorrect!',
+      text: "Please enter correct password",
+        })
         //alert(error)
       }
     })
@@ -506,7 +517,7 @@
         document.getElementById("state").value = responce.address.state;
       },
       error: (error) => {
-        alert('hierror')
+        console.log('hierror')
         console.log(error)
       }
 
@@ -663,7 +674,7 @@
             rzp1.open();
             e.preventDefault();
             rzp1.on('payment.failed', function (response) {
-              alert(response.error.code);
+               console.log(response.error.code);
               //alert(response.error.description);
               //alert(response.error.source);
               //alert(response.error.step);
@@ -679,7 +690,7 @@
       },
 
       error: (error) => {
-        alert('hierror')
+        console.log('hierror')
         console.log(error)
       },
     })
@@ -704,33 +715,33 @@
 </script>
 {{!-- ------------------------cancel-order---------------------------- --}}
 <script>
-    function cancelOrder(orderId) {
+  function cancelOrder(orderId) {
 
 
-        $.ajax({
-            url: '/cancelOrder',
-            data: {
+    $.ajax({
+      url: '/cancelOrder',
+      data: {
 
-                orderId: orderId
+        orderId: orderId
 
-            },
-            method: 'post',
-            success: (res) => {
-                console.log("res:",res)
-                location.reload()
-                //event.preventDefault()
-
-
+      },
+      method: 'post',
+      success: (res) => {
+        console.log("res:", res)
+        location.reload()
+        //event.preventDefault()
 
 
 
-            },
-            error: (error) => {
-                alert('hierror')
-                console.log(error)
-            },
-        })
-    }
+
+
+      },
+      error: (error) => {
+        console.log('hierror')
+        console.log(error)
+      },
+    })
+  }
 
 
 </script>
